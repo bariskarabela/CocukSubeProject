@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Profil";
+}
+
+
+<div class="row">
+    <div class="col-4 offset-4">
+        <h1 class="display-4 border-bottom text-center pb-2"> @ViewData["Title"]</h1>
+
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-4">
+        <div class="mb-4">
+            <div asp-validation-summary="All" class="text-danger small"></div>
+        </div>
+        
+        <form method="post" asp-action="ProfileChangeName">
+            <div class="form-group">
+                <label class="form-label small">İsim Soyisim</label>
+                <div class="input-group mb-3">
+                    <input name="name" type="text" class="form-control" placeholder="İsim Soyisiminiz" value="@ViewData["fullName"]">
+                    <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Kaydet</button>
+                </div>
+                @if (ViewData["result"] != null && ViewData["result"] == "FullNameChanged")
+                {
+                    <span class="text-success small">İsim Soyisim Güncellendi.</span>
+                }
+            </div>
+        </form>
+
+        <form method="post" asp-action="ProfileChangePassword">
+            <div class="form-group">
+                <label class="form-label small">Yeni Şifre</label>
+                <div class="input-group">
+                    <input name="password" type="password" class="form-control" placeholder="Yeni Şifreniz">
+                    <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Kaydet</button>
+                </div>
+                @if (ViewData["result"] != null && ViewData["result"] == "PasswordChanged")
+                {
+                    <span class="text-success small">Şifre Güncellendi.</span>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @if (ViewData["result"] != null && ViewData["result"] == "PasswordChanged")
+    {   <script>
+                    toastr["success"]("Şifre değiştirildi.","Başarılı.")
+         </script>
+       
+    }
+    @if (ViewData["result"] != null && ViewData["result"] == "FullNameChanged")
+    {
+           <script>
+            toastr["success"]("İsim Soyisim değiştirildi.", "Başarılı.")
+        </script>
+
+    }
+    <script>
+      
+        @if (!ViewData.ModelState.IsValid)
+        {
+            foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <text>
+                    toastr.error("@Html.Raw(error.ErrorMessage)", "Hata");
+                </text>
+                
+            }
+        }
+    </script>
+
+}
