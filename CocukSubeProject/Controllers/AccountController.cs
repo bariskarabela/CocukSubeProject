@@ -109,7 +109,9 @@ namespace CocukSubeProject.Controllers
                 }
                 else
                 {
-                    return RedirectToAction(nameof(Login));
+
+                    ViewData["result"] = "UserAddSuccess"; 
+                    return View();
                 }
             }
             return View(model);
@@ -128,6 +130,7 @@ namespace CocukSubeProject.Controllers
             User user = _databaseContext.Users.SingleOrDefault(x => x.Id == userId);
 
             ViewData["fullName"] = user.FullName;
+            ViewData["PorfileImage"] = user.ProfileImageFileName;
         }
 
         [HttpPost]
@@ -175,5 +178,29 @@ namespace CocukSubeProject.Controllers
             ProfileInfoLoader();
             return View(nameof(Profile));
         }
+        [HttpPost]
+        public IActionResult ProfileChangeImage([Required(ErrorMessage = "Fotoğraf boş olamaz.")] IFormFile file)
+        {
+            if (ModelState.IsValid)
+            {
+                Guid userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                User user = _databaseContext.Users.SingleOrDefault(x => x.Id == userId);
+
+                string fileName = $"p_{userId}.jpg";
+
+                Stream stream = new FileStream($"wwwroot/uploads{fileName}",FileMode.OpenOrCreate);
+
+                file.CopyTo(stream);
+
+                stream.Close();
+                stream.Dispose();
+
+                user.ProfileImageFileName = fileName;
+                _databaseContext.SaveChanges();
+            }
+            ProfileInfoLoader();
+            return View(nameof(Profile));
+        }
+        
     }
 }

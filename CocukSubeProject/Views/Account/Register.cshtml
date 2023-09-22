@@ -51,3 +51,28 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @if (ViewData["result"] != null && ViewData["result"] == "UserAddSuccess")
+    {
+        <script>
+            toastr["success"]("Personel eklendi.", "Başarılı.")
+        </script>
+
+    }
+
+    <script>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <text>
+                    toastr.error("@Html.Raw(error.ErrorMessage)", "Hata");
+                </text>
+
+            }
+        }
+    </script>
+
+}

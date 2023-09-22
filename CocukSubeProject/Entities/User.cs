@@ -28,6 +28,8 @@ namespace CocukSubeProject.Entities
         [StringLength(50)]
         [Required]
         public string Role { get; set; } = "user";
+        [StringLength(255)]
+        public string? ProfileImageFileName { get; set; } = "no-image.jpg";
 
     }
 }
