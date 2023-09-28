@@ -130,7 +130,7 @@ namespace CocukSubeProject.Controllers
             User user = _databaseContext.Users.SingleOrDefault(x => x.Id == userId);
 
             ViewData["fullName"] = user.FullName;
-            ViewData["PorfileImage"] = user.ProfileImageFileName;
+            ViewData["ProfileImage"] = user.ProfileImageFileName;
         }
 
         [HttpPost]
@@ -188,7 +188,7 @@ namespace CocukSubeProject.Controllers
 
                 string fileName = $"p_{userId}.jpg";
 
-                Stream stream = new FileStream($"wwwroot/uploads{fileName}",FileMode.OpenOrCreate);
+                Stream stream = new FileStream($"wwwroot/uploads/{fileName}",FileMode.OpenOrCreate);
 
                 file.CopyTo(stream);
 

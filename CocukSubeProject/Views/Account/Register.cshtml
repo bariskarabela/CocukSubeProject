@@ -40,9 +40,21 @@
                 <span asp-validation-for="FullName" class="text-danger small"></span>
             </div>
 
-            <div class="form-group mb-3">
+@*            <div class="form-group mb-3">
                 <label asp-for="District" class="form-label"><i class="fa-solid fa-handcuffs me-2"></i>Birim</label>
                 <input asp-for="District" class="form-control" placeholder="Birim" />
+                <span asp-validation-for="District" class="text-danger small"></span>
+            </div>*@
+            <label asp-for="District" class="form-label"><i class="fa-solid fa-handcuffs me-2"></i>Birim</label>
+            <div class="input-group mb-3">
+                
+                @*<label asp-for="District" class="input-group-text" for="inputGroupSelect01">Birimler</label>*@
+                <select asp-for="District" class="form-select" id="inputGroupSelect01">
+                    <option selected></option>
+                    <option value="Bilgi Teknolojileri ve Haberleşme Şube Müdürlüğü">Bilgi Teknolojileri ve Haberleşme Şube Müdürlüğü</option>
+                    <option value="Kartal İlçe Emniyet Müdürlüğü">Kartal İlçe Emniyet Müdürlüğü</option>
+                    <option value="Pendik İlçe Emniyet Müdürlüğü">Pendik İlçe Emniyet Müdürlüğü</option>
+                </select>
                 <span asp-validation-for="District" class="text-danger small"></span>
             </div>
             <div class="form-group d-grid mb-3">

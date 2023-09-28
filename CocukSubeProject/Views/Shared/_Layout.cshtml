@@ -53,17 +53,19 @@
                             
                             if (User.IsInRole("admin"))
                             {
-                               @* <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index"><i class="fa-solid fa-house me-2"></i>Admin</a>
-                                </li>*@
+                             
+                                <li class="nav-item dropdown ms-auto">
+                                    <a class="nav-link dropdown-toggle" asp-controller="Admin" asp-action="Index" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-lock me-2"></i>
+                                        Admin İşlemleri
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a asp-controller="User" asp-action="Index" class="dropdown-item"><i class="fa-solid fa-users me-2"></i>Personeller</a></li>
+                                        <li><a asp-controller="Account" asp-action="Register" class="dropdown-item"><i class="fa-solid fa-plus me-2"></i>Personel Ekle</a></li>
 
-                                <li class="nav-item ms-auto">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-users me-2"></i>Personeller</a>
+                                    </ul>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register"><i class="fa-solid fa-plus me-2"></i>Personel Ekle</a>
-                                </li>
 
 
                             }

@@ -1,6 +1,7 @@
 using CocukSubeProject.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace CocukSubeProject
 {
@@ -12,6 +13,7 @@ namespace CocukSubeProject
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             builder.Services.AddDbContext<DatabaseContext>(opts =>
             {
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

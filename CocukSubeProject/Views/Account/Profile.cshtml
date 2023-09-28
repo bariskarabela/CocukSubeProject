@@ -20,11 +20,11 @@
     <div class="col-6">
         <form method="post" asp-action="ProfileChangeImage" enctype="multipart/form-data">
             <div class="text-center mb-3">
-                <img src="~/uploads/@ViewData["ProfileImage"]" class="img-thumbnail rounded-circle" width="150" />
+                <img src="~/uploads/@ViewData["ProfileImage"]" width="128" class="img-thumbnail rounded-circle" width="150" />
             </div>
             <div class="form-group mb-3">
                 <label class="form-label small">Profil Resmi</label>
-                <input name="" type="file" name="file" class="form-control" accept=".jpg, .jpeg" />
+                <input type="file" name="file" class="form-control" accept=".jpg" />
                 <div>
                     <span class="small"><i class="fa fa-info-circle me-2"></i> Sadece .jpg</span>
                 </div>
@@ -39,6 +39,11 @@
 
     <div class="col-6">
 
+        <div>
+            <h2>Ayarlar</h2>
+            <hr />
+           
+        </div>
 
         <form method="post" asp-action="ProfileChangeName">
             <div class="form-group">
