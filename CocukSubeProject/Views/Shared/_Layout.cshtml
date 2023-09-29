@@ -20,20 +20,14 @@
 
                 <div class=" text-center"><h2 class="text-primary">ÇOCUK ŞUBE TAKİP</h2></div>
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    
-                    </a>
+
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-
-
-               
-                       
-                        
-
 
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -42,36 +36,35 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-users-viewfinder me-2"></i>Şahıslar</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Suspect" asp-action="Index"><i class="fa-solid fa-users-viewfinder me-2"></i>Şahıslar</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-chart-simple me-2"></i>İstatistik</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Suspect" asp-action="Index"><i class="fa-solid fa-chart-simple me-2"></i>İstatistik</a>
                             </li>
 
-                           
-                            
+
                             if (User.IsInRole("admin"))
                             {
-                             
+
                                 <li class="nav-item dropdown ms-auto">
                                     <a class="nav-link dropdown-toggle" asp-controller="Admin" asp-action="Index" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-lock me-2"></i>
                                         Admin İşlemleri
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a asp-controller="User" asp-action="Index" class="dropdown-item"><i class="fa-solid fa-users me-2"></i>Personeller</a></li>
-                                        <li><a asp-controller="Account" asp-action="Register" class="dropdown-item"><i class="fa-solid fa-plus me-2"></i>Personel Ekle</a></li>
+                                   
+                                        <ul class="dropdown-menu">
+                                            <li><a asp-controller="User" asp-action="Index" class="dropdown-item"><i class="fa-solid fa-users me-2"></i>Personeller</a></li>
+                                            <li><a asp-controller="Account" asp-action="Register" class="dropdown-item"><i class="fa-solid fa-plus me-2"></i>Personel Ekle</a></li>
 
-                                    </ul>
+                                        </ul>
+
+                                    
+                                    
                                 </li>
 
-
-
                             }
-                            
 
-                       
 
                             <li class="nav-item ms-auto">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile"><i class="fa-solid fa-user me-2"></i>Profil=@User.FindFirst("Sicil")</a>
@@ -79,10 +72,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Çıkış Yap</a>
                             </li>
-                        
-                           
 
-                            
+
+
+
 
                         }
                         else
@@ -90,14 +83,14 @@
                             <li class="nav-item  ms-auto">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login"><i class="fa-solid fa-right-to-bracket me-2"></i>Giriş Yap</a>
                             </li>
-                            
+
                         }
 
 
-                        
-                        
 
-                        
+
+
+
                     </ul>
                 </div>
             </div>

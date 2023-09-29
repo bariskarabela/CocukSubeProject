@@ -1,0 +1,74 @@
+﻿@model EditUserModel
+
+@{
+    ViewData["Title"] = "Personel Düzenle";
+}
+
+<div class="row">
+    <div class="col-4 offset-4">
+        <h1 class="display-4 border-bottom text-center pb-2">@ViewData["Title"]</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-4 offset-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Sicil" class="form-label"><i class="fa-solid fa-user me-2"></i>Sicil</label>
+                <input asp-for="Sicil" class="form-control" placeholder="Sicil" />
+                <span asp-validation-for="Sicil" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="FullName" class="form-label"><i class="fa-solid fa-signature me-2"></i>İsim Soyisim</label>
+                <input asp-for="FullName" class="form-control" placeholder="Kullanıcı İsim Soyisim" />
+                <span asp-validation-for="FullName" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Role" class="form-label">Yetki</label>
+                <select asp-for="Role" class="form-select">
+
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <span asp-validation-for="Role" class="text-danger small"></span>
+
+            </div>
+
+            
+
+
+            <div class="form-group mb-3">
+                <label asp-for="District" class="form-label"><i class="fa-solid fa-handcuffs me-2"></i>Birim</label>
+                
+                    <select asp-for="District" class="form-select">
+
+                        <option value="Bilgi Teknolojileri ve Haberleşme Şube Müdürlüğü">Bilgi Teknolojileri ve Haberleşme Şube Müdürlüğü</option>
+                        <option value="Kartal İlçe Emniyet Müdürlüğü">Kartal İlçe Emniyet Müdürlüğü</option>
+                        <option value="Pendik İlçe Emniyet Müdürlüğü">Pendik İlçe Emniyet Müdürlüğü</option>
+
+                    </select>
+                
+
+              <span asp-validation-for="District" class="text-danger small"></span>
+
+            </div>
+
+            <div class="form-group mb-3">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" asp-for="Locked" />
+                    <label class="form-check-label" asp-for="Locked">Hesabı dondur</label>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save me-2"></i>Güncelle</button>
+            </div>
+        </form>
+    </div>
+
+</div>

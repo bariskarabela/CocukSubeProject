@@ -25,10 +25,9 @@ namespace CocukSubeProject.Models
         public string RePassword { get; set; }
 
 
-        [Required(ErrorMessage = "Soyisim giriniz.")]
+        [Required(ErrorMessage = "Birim giriniz.")]
         [MinLength(3, ErrorMessage = "Minimum 3 hane olmalıdır.")]
         public string District { get; set; }
-
 
     }
 }

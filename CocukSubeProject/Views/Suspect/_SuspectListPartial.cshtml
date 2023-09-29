@@ -1,0 +1,43 @@
+﻿@model List<UserModel>
+
+
+<table class="table table-hover table-sm">
+    <thead>
+        <tr>
+            <th>Sicil</th>
+            <th>İsim Soyisim</th>
+            <th>Birim</th>
+            <th>Yetki</th>
+            <th>Aktif Mi?</th>
+            <th>Oluşturulma Zamanı</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (UserModel user in Model)
+        {
+            <tr>
+                <td>@user.Sicil</td>
+                <td>@user.FullName</td>
+                <td>@user.District</td>
+                <td>@user.Role</td>
+                <td>
+                    @if (user.Locked)
+                    {
+
+                        <i class="fa fa-times text-danger"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-check text-success"></i>
+                    }
+                </td>
+                <td>@user.CreatedAt</td>
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@user.Id" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-edit me-2"></i></a>
+                    <a asp-action="Delete" asp-route-id="@user.Id" onclick="return confirm('@user.FullName isimli @user.Sicil sicilli kullanıcıyı silmek istediğinize emin misiniz?')" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-trash me-2"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

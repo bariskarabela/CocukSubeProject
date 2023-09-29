@@ -3,10 +3,11 @@
 }
 
 
-<div class="row">
-    <div class="col-4 offset-6">
-        <h1 class="display-4 border-bottom text-center pb-2"> @ViewData["Title"]</h1>
 
+<div class="row">
+    <div class="col">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <hr />
     </div>
 </div>
 
@@ -17,10 +18,10 @@
         </div>
     </div>
 
-    <div class="col-6">
+  @*  <div class="col-6">
         <form method="post" asp-action="ProfileChangeImage" enctype="multipart/form-data">
             <div class="text-center mb-3">
-                <img src="~/uploads/@ViewData["ProfileImage"]" width="128" class="img-thumbnail rounded-circle" width="150" />
+                <img src="~/uploads/@ViewData["ProfileImage"]" aria-atomic="true" width="128" class="img-thumbnail rounded-circle" width="150" />
             </div>
             <div class="form-group mb-3">
                 <label class="form-label small">Profil Resmi</label>
@@ -35,15 +36,11 @@
             </div>
 
         </form>
-    </div>
+    </div>*@
 
     <div class="col-6">
 
-        <div>
-            <h2>Ayarlar</h2>
-            <hr />
-           
-        </div>
+
 
         <form method="post" asp-action="ProfileChangeName">
             <div class="form-group">

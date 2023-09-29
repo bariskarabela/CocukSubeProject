@@ -9,6 +9,7 @@ namespace CocukSubeProject
         public AutoMapperConfig()
         {
             CreateMap<User, UserModel>().ReverseMap();
+            CreateMap<User, EditUserModel>().ReverseMap();
         }
     }
 }
