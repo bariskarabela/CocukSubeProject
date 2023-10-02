@@ -22,10 +22,10 @@ namespace CocukSubeProject.Controllers
 
         public IActionResult SuspectListPartial()
         {
-            List<UserModel> users = _databaseContext.Users.ToList()
-               .Select(x => _mapper.Map<UserModel>(x)).ToList();
+            List<SuspectModel> suspects = _databaseContext.Suspects.ToList()
+               .Select(x => _mapper.Map<SuspectModel>(x)).ToList();
 
-            return PartialView("_SuspectListPartial",users);
+            return PartialView("_SuspectListPartial", suspects);
         }
     }
 }

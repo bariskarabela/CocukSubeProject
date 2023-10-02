@@ -9,5 +9,6 @@ namespace CocukSubeProject.Entities
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Suspect> Suspects { get; set; }
     }
 }

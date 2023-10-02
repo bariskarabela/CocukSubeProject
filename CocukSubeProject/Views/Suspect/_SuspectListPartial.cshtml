@@ -1,26 +1,29 @@
-﻿@model List<UserModel>
+﻿@model List<SuspectModel>
 
 
 <table class="table table-hover table-sm">
     <thead>
         <tr>
-            <th>Sicil</th>
+            <th>Kimlik No</th>
             <th>İsim Soyisim</th>
-            <th>Birim</th>
-            <th>Yetki</th>
-            <th>Aktif Mi?</th>
+            <th>Doğum Tarihi</th>
+            <th>Cinsiyet</th>
+            <th>Uyruk</th>
+            <th>İlçe</th>
+            <th>Yakalanma Adresi</th>
             <th>Oluşturulma Zamanı</th>
+            <th>Güncelleme Zamanı</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (UserModel user in Model)
+        @foreach (SuspectModel suspect in Model)
         {
             <tr>
-                <td>@user.Sicil</td>
-                <td>@user.FullName</td>
-                <td>@user.District</td>
-                <td>@user.Role</td>
+                <td>@suspect.Tc</td>
+                <td>@suspect.Name  @suspect.LastName</td>
+                <td>@suspect.DateOfBirth.ToString()</td>
+                <td>@suspect</td>
                 <td>
                     @if (user.Locked)
                     {

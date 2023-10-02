@@ -10,6 +10,7 @@ namespace CocukSubeProject
         {
             CreateMap<User, UserModel>().ReverseMap();
             CreateMap<User, EditUserModel>().ReverseMap();
+            CreateMap<Suspect, SuspectModel>().ReverseMap();
         }
     }
 }
