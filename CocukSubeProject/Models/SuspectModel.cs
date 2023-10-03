@@ -4,7 +4,8 @@ namespace CocukSubeProject.Models
 {
     public class SuspectModel
     {
-
+        [Required]
+        public Guid Id { get; set; }
         [Required]
         [MaxLength(11)]
         [MinLength(11)]
@@ -19,8 +20,8 @@ namespace CocukSubeProject.Models
 
         public DateTime DateOfBirth { get; set; }
         [Required]
-
-        public bool Gender { get; set; }
+        [StringLength(10)]
+        public string Gender { get; set; }
         [Required]
         [StringLength(50)]
         public string Nationality { get; set; }
