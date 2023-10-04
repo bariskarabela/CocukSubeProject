@@ -27,5 +27,29 @@ namespace CocukSubeProject.Controllers
 
             return PartialView("_SuspectListPartial", suspects);
         }
+        public IActionResult Chart()
+        {
+            return View();
+        }
+
+        public IActionResult AddNewSuspectPartial()
+        {
+            
+
+            return PartialView("_AddNewSuspectPartial", new SuspectModel());
+        }
+        [HttpPost]
+        public IActionResult AddNewSuspect(Suspect model)
+        {
+            if (ModelState.IsValid)
+            {
+                Suspect suspect = _mapper.Map<Suspect>(model);
+
+                _databaseContext.Suspects.Add(suspect);
+                _databaseContext.SaveChanges();
+            }
+
+            return PartialView("_AddNewSuspectPartial", model);
+        }
     }
 }

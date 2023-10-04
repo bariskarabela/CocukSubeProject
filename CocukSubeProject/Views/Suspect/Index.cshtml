@@ -11,8 +11,8 @@
 
 <div class="row mb-3">
     <div class="col">
-        <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalAdd"><i class="fa-solid fa-plus me-2"></i>Şahıs Ekle</a>
-        <a id="refresh" data-ajax="true" data-ajax-method="Get" data-ajax-url="/Suspect/SuspectListPartial" data-ajax-update="#panel" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrows-rotate me-2"></i>Yenile</a>
+        <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalAdd" data-ajax="true" data-ajax-method="get" data-ajax-url="/Suspect/AddNewSuspectPartial" data-ajax-update="#modalAddContent"><i class="fa-solid fa-plus me-2"></i>Şahıs Ekle</a>
+        <a id="refresh" data-ajax="true" data-ajax-method="get" data-ajax-url="/Suspect/SuspectListPartial" data-ajax-update="#panel" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrows-rotate me-2"></i>Yenile</a>
     </div>
 </div>
 
@@ -25,23 +25,13 @@
 </div>
 
 <!-- Modal -->
-@*<div class="modal fade" id="modalAdd" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" ">Yeni Şahıs Ekle</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Kapat</button>
-                <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-save me-2"></i>Kaydet</button>
-            </div>
+<div class="modal fade" id="modalAdd" tabindex="-1" aria-hidden="true">
+    <div  class="modal-dialog">
+        <div id="modalAddContent" class="modal-content">
+            
         </div>
     </div>
-</div>*@
+</div>
 
 @section Scripts {
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
