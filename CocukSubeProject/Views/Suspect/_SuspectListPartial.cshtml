@@ -8,13 +8,11 @@
             <th>Kimlik No</th>
             <th>İsim Soyisim</th>
             <th>Cinsiyet</th>
-            <th>Doğum Tarihi</th>
-
-        
+            <th>Doğum Tarihi</th>  
             <th>İlçe</th>
             <th>Yakalanma Adresi</th>
             <th>Oluşturulma Zamanı</th>
-            <th>Güncelleme Zamanı</th>
+            <th>İletişim</th>
             <th></th>
         </tr>
     </thead>
@@ -26,17 +24,20 @@
                 <td>@suspect.Tc</td>
                 <td>@suspect.Name  @suspect.LastName</td>
                 <td>@suspect.Gender</td>
-                <td>@suspect.DateOfBirth.ToString()</td>
- 
+                <td>@suspect.DateOfBirth.ToShortDateString()</td>
                 <td>@suspect.District</td>
                 <td>@suspect.CatchAdress</td>
                 <td>@suspect.CreatedDate.ToString()</td>
-                <td>@suspect.UpdatedDate.ToString()</td>
+                <td>@suspect.Phone</td>
                 <td class="text-end">
-                    <a asp-action="Edit" * asp-route-id="" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-edit me-2"></i></a>
-                    <a asp-action="Delete" asp-route-id="" onclick="return confirm('@suspect.Name isimli @suspect.Tc kimlik numaralı kullanıcıyı silmek istediğinize emin misiniz?')" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-trash me-2"></i></a>
+                    <a asp-action="EditSuspectPartial" asp-route-id="@suspect.Id" type="button" class="btn btn-info btn-sm bg-secondary" data-bs-toggle="modal" data-bs-target="#modalEdit" data-ajax="true" data-ajax-method="get" data-ajax-update="#modalEditContent"><i class="fa fa-edit me-2"></i></a>
+                    <a asp-action="DeleteSuspect" asp-route-id="@suspect.Id" data-ajax-confirm="@suspect.Name isimli @suspect.Tc kimlik numaralı kullanıcıyı silmek istediğinize emin misiniz?"
+                       data-ajax="true" data-ajax-method="get" data-ajax-update="#panel" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-trash me-2"></i></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+

@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CocukSubeProject.Entities
 {
+    [Table("Suspects")]
     public class Suspect
     {
         [Key]
-        public Guid Id { get; set; }
+        [Required]
+        public int Id { get; set; }
         [Required]
         [MaxLength(11)]
         [MinLength(11)]
@@ -26,16 +29,16 @@ namespace CocukSubeProject.Entities
         [StringLength(50)]
         public string Nationality { get; set; }
         [Required]
-
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         [Required]
-
+        [StringLength(50)]
         public string District { get; set; }
 
         [Required]
         [StringLength(250)]
         public string CatchAdress { get; set; }
-        public DateTime UpdatedDate { get; set; } = DateTime.Now;
+        [StringLength(30)]
+        public string? Phone { get; set; }
 
     }
 }

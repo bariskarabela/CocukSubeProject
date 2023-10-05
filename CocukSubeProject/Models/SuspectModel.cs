@@ -3,9 +3,11 @@
 namespace CocukSubeProject.Models
 {
     public class SuspectModel
+
     {
+        [Key]
         [Required]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(11)]
         [MinLength(11)]
@@ -26,15 +28,17 @@ namespace CocukSubeProject.Models
         [StringLength(50)]
         public string Nationality { get; set; }
         [Required]
-
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         [Required]
-
+        [StringLength(50)]
         public string District { get; set; }
         [Required]
 
         [StringLength(250)]
         public string CatchAdress { get; set; }
-        public DateTime UpdatedDate { get; set; } = DateTime.Now;
+
+        public string? Done { get; set; }
+        [StringLength(30)]
+        public string? Phone { get; set; }
     }
 }

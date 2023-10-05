@@ -1,11 +1,11 @@
 ﻿@model SuspectModel
 
 <div class="modal-header">
-    <h1 class="modal-title fs-5">Olay Ekle</h1>
+    <h1 class="modal-title fs-5">Düzenle</h1>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
-    <form id="frmAddNewSuspect" asp-action="AddNewSuspect" method="post" data-ajax="true" data-ajax-method="post" data-ajax-update="#modalAddContent">
+    <form id="frmEditSuspect" asp-action="EditSuspect" method="post" data-ajax="true" data-ajax-method="post" data-ajax-update="#modalEditContent">
         <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
 
         <div class="form-group mb-3">
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group mb-3">
             <label asp-for="DateOfBirth" class="form-label"><i class="fa-solid fa-calendar-days me-2"></i>Doğum Tarihi</label>
-            <input asp-for="DateOfBirth" min="1923-01-01" type="date" class="form-control"/>
+            <input asp-for="DateOfBirth" class="form-control" placeholder="Doğum Tarihi" />
             <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
         </div>
         <div><label asp-for="Gender" class="form-label"><i class="fa-solid fa-venus-mars me-2"></i>Cinsiyet</label></div>
@@ -119,12 +119,12 @@
             <span asp-validation-for="Phone" class="text-danger small"></span>
         </div>
 
-
+        <input type="hidden" asp-for="Id" />
     </form>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Kapat</button>
-    <button type="submit" class="btn btn-primary btn-sm" form="frmAddNewSuspect"><i class="fa fa-save me-2"></i>Kaydet</button>
+    <button type="submit" class="btn btn-primary btn-sm" form="frmEditSuspect"><i class="fa fa-save me-2"></i>Kaydet</button>
 </div>
 
 
@@ -132,7 +132,7 @@
 @if (string.IsNullOrEmpty(Model.Done) == false)
 {
     <script>
-        $("#modalAdd").modal("hide");
+        $("#modalEdit").modal("hide");
         toastr.success('@Model.Done','Başarılı')
         refresh.click();
     </script>

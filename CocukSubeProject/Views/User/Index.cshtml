@@ -30,7 +30,7 @@
                     <th>İsim Soyisim</th>
                     <th>Birim</th>
                     <th>Yetki</th>
-                    <th>Aktif Mi?</th>
+         @*           <th>Aktif Mi?</th>*@
                     <th>Oluşturulma Zamanı</th>
                     <th></th>
                 </tr>
@@ -43,7 +43,7 @@
                         <td>@user.FullName</td>
                         <td>@user.District</td>
                         <td>@user.Role</td>
-                        <td>
+ @*                       <td>
                             @if (user.Locked)
                             {
                                 
@@ -53,7 +53,7 @@
                             {
                                 <i class="fa fa-check text-success"></i>
                             }
-                        </td>
+                        </td>*@
                         <td>@user.CreatedAt</td>
                         <td class="text-end">
                             <a asp-action="Edit" asp-route-id="@user.Id" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-edit me-2"></i></a>

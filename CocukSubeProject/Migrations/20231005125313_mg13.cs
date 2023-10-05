@@ -1,33 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace CocukSubeProject.Migrations
 {
-    public partial class mg7 : Migration
+    public partial class mg13 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Gender",
+                name: "DateOfBirth",
                 table: "Suspects",
-                type: "nvarchar(10)",
-                maxLength: 10,
+                type: "nvarchar(max)",
                 nullable: false,
-                oldClrType: typeof(bool),
-                oldType: "bit");
+                oldClrType: typeof(DateTime),
+                oldType: "datetime2");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<bool>(
-                name: "Gender",
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "DateOfBirth",
                 table: "Suspects",
-                type: "bit",
+                type: "datetime2",
                 nullable: false,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(10)",
-                oldMaxLength: 10);
+                oldType: "nvarchar(max)");
         }
     }
 }
