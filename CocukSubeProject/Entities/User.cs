@@ -15,6 +15,7 @@ namespace CocukSubeProject.Entities
         public string Sicil { get; set; }
         [Required]
         [StringLength(100)]
+        [MinLength(6)]
         public string Password { get; set; }
         [Required]
         [StringLength(50)]

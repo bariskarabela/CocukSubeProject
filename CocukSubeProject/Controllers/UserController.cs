@@ -2,6 +2,7 @@
 using CocukSubeProject.Entities;
 using CocukSubeProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using NETCore.Encrypt.Extensions;
 
 namespace CocukSubeProject.Controllers
 {
@@ -9,11 +10,14 @@ namespace CocukSubeProject.Controllers
     {
         private readonly DatabaseContext _databaseContext;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public UserController(DatabaseContext databaseContext, IMapper mapper)
+        public UserController(DatabaseContext databaseContext, IMapper mapper, IConfiguration configuration)
         {
             _databaseContext = databaseContext;
             _mapper = mapper;
+            _configuration = configuration;
+
         }
 
         public IActionResult Index()
@@ -68,6 +72,31 @@ namespace CocukSubeProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult ResetPassword(Guid id)
+        {
+            User user = _databaseContext.Users.Find(id);
+
+            if (user != null)
+            {
+
+                string password = "Pl123456++";
+
+                string hashedPassword = DoMD5HashedString(password);
+
+                user.Password = hashedPassword;
+                _databaseContext.SaveChanges();
+
+                ViewData["result"] = "PasswordReseted";
+            }
+            return RedirectToAction("Index","User");
+        }
+        private string DoMD5HashedString(string s)
+        {
+            string md5Salt = _configuration.GetValue<string>("AppSettings:MD5Salt");
+            string salted = s + md5Salt;
+            string hashed = salted.MD5();
+            return hashed;
+        }
 
     }
 }

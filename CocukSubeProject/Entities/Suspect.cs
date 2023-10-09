@@ -33,12 +33,18 @@ namespace CocukSubeProject.Entities
         [Required]
         [StringLength(50)]
         public string District { get; set; }
+        [Required(ErrorMessage = "Zorunlu Alan.")]
+        public DateTime CatchDate { get; set; }
+
 
         [Required]
         [StringLength(250)]
         public string CatchAdress { get; set; }
-        [StringLength(30)]
+        [StringLength(11)]
         public string? Phone { get; set; }
+        [Required(ErrorMessage = "Zorunlu Alan.")]
+        [StringLength(100)]
+        public string Crime { get; set; }
 
     }
 }

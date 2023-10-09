@@ -161,7 +161,7 @@ namespace CocukSubeProject.Controllers
             return RedirectToAction(nameof(Login));
         }
         [HttpPost]
-        public IActionResult ProfileChangePassword([Required(ErrorMessage = "Şifre boş olamaz.")][StringLength(50, ErrorMessage = "50 Karakterden büyük olamaz.")] string? password)
+        public IActionResult ProfileChangePassword([Required(ErrorMessage = "Şifre boş olamaz.")][StringLength(50, ErrorMessage = "50 Karakterden büyük olamaz.")][MinLength(6,ErrorMessage ="Minimum 6 hane.")] string? password)
         {
             if (ModelState.IsValid)
             {
@@ -201,6 +201,8 @@ namespace CocukSubeProject.Controllers
             ProfileInfoLoader();
             return View(nameof(Profile));
         }
-        
+
+ 
+
     }
 }

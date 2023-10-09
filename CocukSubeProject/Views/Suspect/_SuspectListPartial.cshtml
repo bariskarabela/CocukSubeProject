@@ -1,18 +1,29 @@
-﻿@model List<SuspectModel>
+﻿@*@model List<SuspectModel>*@
+@model IPagedList<SuspectModel>
+@using X.PagedList;
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+
 
 
 <table class="table table-hover table-sm">
     <thead>
         <tr>
+            <th>Olay Tarihi</th>
             <th>Uyruk</th>
             <th>Kimlik No</th>
             <th>İsim Soyisim</th>
             <th>Cinsiyet</th>
             <th>Doğum Tarihi</th>  
             <th>İlçe</th>
-            <th>Yakalanma Adresi</th>
-            <th>Oluşturulma Zamanı</th>
-            <th>İletişim</th>
+            <th>İkamet Adresi</th>
+     
+            <th>İletişim Bilgisi</th>
+            <th>Yapılan İşlem</th>
+                 <th>Olay Tarihi</th>
+        
+
             <th></th>
         </tr>
     </thead>
@@ -20,6 +31,7 @@
         @foreach (SuspectModel suspect in Model)
         {
             <tr>
+                <td>@suspect.CatchDate.ToShortDateString()</td>
                 <td>@suspect.Nationality</td>
                 <td>@suspect.Tc</td>
                 <td>@suspect.Name  @suspect.LastName</td>
@@ -27,8 +39,13 @@
                 <td>@suspect.DateOfBirth.ToShortDateString()</td>
                 <td>@suspect.District</td>
                 <td>@suspect.CatchAdress</td>
-                <td>@suspect.CreatedDate.ToString()</td>
+               @* <td>@suspect.CreatedDate.ToString()</td>*@
                 <td>@suspect.Phone</td>
+                <td>@suspect.Crime</td>
+                <td>@suspect.CatchDate.ToShortDateString()</td>
+             
+
+               
                 <td class="text-end">
                     <a asp-action="EditSuspectPartial" asp-route-id="@suspect.Id" type="button" class="btn btn-info btn-sm bg-secondary" data-bs-toggle="modal" data-bs-target="#modalEdit" data-ajax="true" data-ajax-method="get" data-ajax-update="#modalEditContent"><i class="fa fa-edit me-2"></i></a>
                     <a asp-action="DeleteSuspect" asp-route-id="@suspect.Id" data-ajax-confirm="@suspect.Name isimli @suspect.Tc kimlik numaralı kullanıcıyı silmek istediğinize emin misiniz?"
@@ -39,5 +56,19 @@
     </tbody>
 </table>
 
+
+
+
+
+
+
+
+
+
+@Html.PagedListPager(
+    Model,
+    page => Url.Action("SuspectListPartial", new { page = page}),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions(){  HttpMethod = "GET", UpdateTargetId = "panel"})
+)
 
 

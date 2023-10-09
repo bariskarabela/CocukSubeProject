@@ -3,6 +3,13 @@ using CocukSubeProject.Entities;
 using CocukSubeProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.NetworkInformation;
+using X.PagedList;
+using X.PagedList;
+using X.PagedList.Mvc;
+using X.PagedList.Mvc.Core;
+
+
 
 namespace CocukSubeProject.Controllers
 {
@@ -21,10 +28,10 @@ namespace CocukSubeProject.Controllers
             return View();
         }
 
-        public IActionResult SuspectListPartial()
+        public IActionResult SuspectListPartial(int page=1)
         {
-            List<SuspectModel> suspects = _databaseContext.Suspects.ToList()
-               .Select(x => _mapper.Map<SuspectModel>(x)).ToList();
+            var suspects = _databaseContext.Suspects
+               .Select(x => _mapper.Map<SuspectModel>(x)).ToPagedList(page,10);
 
             return PartialView("_SuspectListPartial", suspects);
         }
@@ -95,45 +102,63 @@ namespace CocukSubeProject.Controllers
         }
 
 
-        public IActionResult Filter(string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, bool? isUnder18 = false, string gender = null)
+        public IActionResult Filter(string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null,/* int? minAge = null, int? maxAge = null,*/ string gender = null,string tc = null)
         {
             IQueryable<Suspect> suspects = _databaseContext.Suspects;
 
             if (!string.IsNullOrEmpty(name))
             {
-                suspects = suspects.Where(s => s.Name == name);
+                suspects = suspects.Where(s => s.Name.Contains(name));
+            }
+
+            if (!string.IsNullOrEmpty(tc))
+            {
+                suspects = suspects.Where(s => s.Tc.Contains(tc));
             }
             if (!string.IsNullOrEmpty(lastName))
             {
-                suspects = suspects.Where(s => s.LastName == lastName);
+                suspects = suspects.Where(s => s.LastName.Contains(lastName));
             }
             if (!string.IsNullOrEmpty(nationality))
             {
-                suspects = suspects.Where(s => s.Nationality == nationality);
+                suspects = suspects.Where(s => s.Nationality.Contains(nationality));
             }
             if (!string.IsNullOrEmpty(catchAdress))
             {
-                suspects = suspects.Where(s => s.CatchAdress == catchAdress);
+                suspects = suspects.Where(s => s.CatchAdress.Contains(catchAdress));
             }
             if (!string.IsNullOrEmpty(district))
             {
-                suspects = suspects.Where(s => s.District == district);
+                suspects = suspects.Where(s => s.District.Contains(district));
+            }
+
+            if (!string.IsNullOrEmpty(ages))
+            {
+
+                var range = ages.Split("-", StringSplitOptions.None);
+                var start = int.Parse(range[0].Trim());
+                var end = int.Parse(range[1].Trim());
+                DateTime minBirthDate = DateTime.Now.AddYears(-start);
+                DateTime maxBirthDate = DateTime.Now.AddYears(-end);
+                suspects = suspects.Where(s => s.DateOfBirth <= minBirthDate && s.DateOfBirth > maxBirthDate);
+
             }
             if (!string.IsNullOrEmpty(gender))
             {
-                suspects = suspects.Where(s => s.Gender == gender);
+                suspects = suspects.Where(s => s.Gender.Contains(gender));
             }
 
-            if (!isUnder18.Value)
-            {
-                DateTime maxBirthDate = DateTime.Now.AddYears(-18);
-                suspects = suspects.Where(s => s.DateOfBirth > maxBirthDate);
-            }
-            else
-            {
-                DateTime minBirthDate = DateTime.Now.AddYears(-18);
-                suspects = suspects.Where(s => s.DateOfBirth <= minBirthDate);
-            }
+            //if (minAge.HasValue)
+            //{
+            //    DateTime minBirthDate = DateTime.Now.AddYears(-minAge.Value);
+            //    suspects = suspects.Where(s => s.DateOfBirth <= minBirthDate);
+            //}
+
+            //if (maxAge.HasValue)
+            //{
+            //    DateTime maxBirthDate = DateTime.Now.AddYears(-maxAge.Value);
+            //    suspects = suspects.Where(s => s.DateOfBirth > maxBirthDate);
+            //}
 
             // Sonuçları ViewModel ile görüntüleme.
             var viewModel = new SuspectViewModel

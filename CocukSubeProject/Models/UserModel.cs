@@ -30,6 +30,7 @@ namespace CocukSubeProject.Models
         [MinLength(3, ErrorMessage = "Minimum 3 hane olmalıdır.")]
         public string District { get; set; }
 
+
         public string Role { get; set; } = "user";
         public bool Locked { get; set; } = false;
     }

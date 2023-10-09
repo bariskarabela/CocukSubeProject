@@ -15,3 +15,4 @@
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
+

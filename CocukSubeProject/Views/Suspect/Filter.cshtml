@@ -2,92 +2,112 @@
 
 <form method="get" asp-action="Filter">
     <div class="form-row">
-        <div class="col-md-6 form-group">
+        <div class="col-md-12 form-group">
 
-            <label for="name"><i class="fa-solid fa-signature me-2"></i>İsim</label>
-            <input type="text" name="name" id="name" class="form-control" />
+            <div class="input-group">
 
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="lastName"><i class="fa-solid fa-signature me-2"></i>Soyisim</label>
-            <input type="text" name="lastName" id="lastName" class="form-control" />
+                <input type="number" name="tc" id="tc" class="form-control me-2" placeholder="Kimlik No" />
 
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="nationality"><i class="fa-solid fa-earth-europe me-2"></i>Uyruk</label>
-            <input type="text" name="nationality" id="nationality" class="form-control" />
+                <input type="text" name="name" id="name" class="form-control me-2" placeholder="İsim" />
 
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="catchAdress"><i class="fa-solid fa-handcuffs me-2"></i>Yakalanma Adresi</label>
-            <input type="text" name="catchAdress" id="catchAdress" class="form-control" />
 
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="district"><i class="fa-solid fa-handcuffs me-2"></i>İlçe</label>
-            <select id="district" name="district" class="form-select">
-                <option value="">All</option>
-                <option value="Adalar">Adalar</option>
-                <option value="Arnavutköy">Arnavutköy</option>
-                <option value="Ataşehir">Ataşehir</option>
-                <option value="Avcılar">Avcılar</option>
-                <option value="Bağcılar">Bağcılar</option>
-                <option value="Bahçelievler">Bahçelievler</option>
-                <option value="Bakırköy">Bakırköy</option>
-                <option value="Başakşehir">Başakşehir</option>
-                <option value="Bayrampaşa">Bayrampaşa</option>
-                <option value="Beşiktaş">Beşiktaş</option>
-                <option value="Beykoz">Beykoz</option>
-                <option value="Beylikdüzü">Beylikdüzü</option>
-                <option value="Beyoğlu">Beyoğlu</option>
-                <option value="Büyükçekmece">Büyükçekmece</option>
-                <option value="Çatalca">Çatalca</option>
-                <option value="Çekmeköy">Çekmeköy</option>
-                <option value="Esenler">Esenler</option>
-                <option value="Esenyurt">Esenyurt</option>
-                <option value="Eyüpsultan">Eyüpsultan</option>
-                <option value="Fatih">Fatih</option>
-                <option value="Gaziosmanpaşa">Gaziosmanpaşa</option>
-                <option value="Güngören">Güngören</option>
-                <option value="Kadıköy">Kadıköy</option>
-                <option value="Kağıthane">Kağıthane</option>
-                <option value="Kartal">Kartal</option>
-                <option value="Küçükçekmece">Küçükçekmece</option>
-                <option value="Maltepe">Maltepe</option>
-                <option value="Pendik">Pendik</option>
-                <option value="Sancaktepe">Sancaktepe</option>
-                <option value="Sarıyer">Sarıyer</option>
-                <option value="Silivri">Silivri</option>
-                <option value="Sultanbeyli">Sultanbeyli</option>
-                <option value="Sultangazi">Sultangazi</option>
-                <option value="Şile">Şile</option>
-                <option value="Şişli">Şişli</option>
-                <option value="Tuzla">Tuzla</option>
-                <option value="Ümraniye">Ümraniye</option>
-                <option value="Üsküdar">Üsküdar</option>
-                <option value="Zeytinburnu">Zeytinburnu</option>
-            </select>
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="age"><i class="fa-solid fa-calendar-days me-2"></i>Yaş</label>
-            <select id="isUnder18" name="isUnder18 " class="form-select"> 
-                <option value="">Hepsi</option>
-                <option value="true">18+</option>
-                <option value="false">18-</option>
-            </select>
+                <input type="text" name="lastName" id="lastName" class="form-control me-2" placeholder="Soyisim" />
 
+
+                <input type="text" name="nationality" id="nationality" class="form-control me-2" placeholder="Uyruk" />
+
+
+                <input type="text" name="catchAdress" id="catchAdress" class="form-control me-2" placeholder="Adres" />
+
+                <select id="district" name="district" class="form-select me-2">
+                    <option value="">İlçe</option>
+                    <option value="Adalar">Adalar</option>
+                    <option value="Arnavutköy">Arnavutköy</option>
+                    <option value="Ataşehir">Ataşehir</option>
+                    <option value="Avcılar">Avcılar</option>
+                    <option value="Bağcılar">Bağcılar</option>
+                    <option value="Bahçelievler">Bahçelievler</option>
+                    <option value="Bakırköy">Bakırköy</option>
+                    <option value="Başakşehir">Başakşehir</option>
+                    <option value="Bayrampaşa">Bayrampaşa</option>
+                    <option value="Beşiktaş">Beşiktaş</option>
+                    <option value="Beykoz">Beykoz</option>
+                    <option value="Beylikdüzü">Beylikdüzü</option>
+                    <option value="Beyoğlu">Beyoğlu</option>
+                    <option value="Büyükçekmece">Büyükçekmece</option>
+                    <option value="Çatalca">Çatalca</option>
+                    <option value="Çekmeköy">Çekmeköy</option>
+                    <option value="Esenler">Esenler</option>
+                    <option value="Esenyurt">Esenyurt</option>
+                    <option value="Eyüpsultan">Eyüpsultan</option>
+                    <option value="Fatih">Fatih</option>
+                    <option value="Gaziosmanpaşa">Gaziosmanpaşa</option>
+                    <option value="Güngören">Güngören</option>
+                    <option value="Kadıköy">Kadıköy</option>
+                    <option value="Kağıthane">Kağıthane</option>
+                    <option value="Kartal">Kartal</option>
+                    <option value="Küçükçekmece">Küçükçekmece</option>
+                    <option value="Maltepe">Maltepe</option>
+                    <option value="Pendik">Pendik</option>
+                    <option value="Sancaktepe">Sancaktepe</option>
+                    <option value="Sarıyer">Sarıyer</option>
+                    <option value="Silivri">Silivri</option>
+                    <option value="Sultanbeyli">Sultanbeyli</option>
+                    <option value="Sultangazi">Sultangazi</option>
+                    <option value="Şile">Şile</option>
+                    <option value="Şişli">Şişli</option>
+                    <option value="Tuzla">Tuzla</option>
+                    <option value="Ümraniye">Ümraniye</option>
+                    <option value="Üsküdar">Üsküdar</option>
+                    <option value="Zeytinburnu">Zeytinburnu</option>
+                </select>
+
+                <select id="ages" name="ages" class="form-select me-2">
+
+                    <option value=>Yaş Aralığı</option>
+                    <option value=0-12>0-12</option>
+                    <option value=12-15>12-15</option>
+                    <option value=15-18>15-18</option>
+                    <option value=18-105>18 Üstü</option>
+                    <option value=0-18>18 Altı</option>
+
+
+
+
+                </select>
+             @*   <select id="minAge" name="minAge" class="form-select sm">
+                    <option value=>Yaş Aralığı</option>
+                    <option value=0>0</option>
+                    <option value=12>12</option>  
+                    <option value=15>15</option>
+                    <option value=18>18</option>     
+                </select>
+
+                <select id="maxAge" name="maxAge" class="form-select me-2">
+       
+                    <option value=>Yaş Aralığı</option>
+                    <option value=12>12</option>
+                    <option value=15>15</option>
+                    <option value=18>18</option>
+         
+
+
+                </select>*@
+
+
+                <select id="gender" name="gender" class="form-select">
+                    <option value="">Cinsiyet</option>
+                    <option value="Erkek">Erkek</option>
+                    <option value="Kadın">Kadın</option>
+                </select>
+
+
+            </div>
         </div>
 
-        <div class="col-md-6 form-group">
-            <label for="gender"><i class="fa-solid fa-venus-mars me-2"></i>Cinsiyet</label>
-            <select id="gender" name="gender" class="form-select">
-                <option value="">Hepsi</option>
-                <option value="Erkek">Erkek</option>
-                <option value="Kadın">Kadın</option>
-            </select>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Filtrele</button>
+        <hr />
+
+        <button type="submit" class="btn btn-primary">Filtrele</button>
 </form>
 
 <div class="alert alert-primary mb-2 mt-2" role="alert">
@@ -112,9 +132,9 @@
         </tr>
     </thead>
     <tbody>
-         @foreach (var suspect in Model.Suspects)
+        @foreach (var suspect in Model.Suspects)
         {
-        <tr>
+            <tr>
                 <td>@suspect.Nationality</td>
                 <td>@suspect.Tc</td>
                 <td>@suspect.Name  @suspect.LastName</td>
@@ -125,8 +145,10 @@
                 <td>@suspect.CreatedDate.ToString()</td>
                 <td>@suspect.Phone</td>
 
-        <!-- Diğer sütunlar buraya eklenebilir -->
-        </tr>
+                <!-- Diğer sütunlar buraya eklenebilir -->
+            </tr>
         }
     </tbody>
 </table>
+
+
