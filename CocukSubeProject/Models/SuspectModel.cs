@@ -49,4 +49,19 @@ namespace CocukSubeProject.Models
         [StringLength(100)]
         public string Crime { get; set; }
     }
+    public class MukerrerModel
+    { 
+    
+        public string Tc { get; set; }
+       
+        public string Name { get; set; }
+    
+        public string LastName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string Gender { get; set; }
+        public string Nationality { get; set; }
+        public int Counting { get; set; }
+
+
+    }
 }

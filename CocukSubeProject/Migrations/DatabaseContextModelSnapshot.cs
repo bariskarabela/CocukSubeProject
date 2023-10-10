@@ -32,8 +32,8 @@ namespace CocukSubeProject.Migrations
 
                     b.Property<string>("CatchAdress")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CatchDate")
                         .HasColumnType("datetime2");

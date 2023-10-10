@@ -1,0 +1,85 @@
+﻿@model List<MukerrerModel>
+
+@{
+    ViewData["Title"] = "Mükerrer Şahıslar";
+}
+
+<div class="row">
+    <div class="col">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <hr />
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-3">
+        @*        <a asp-action="AddNewSuspectPartial" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalAdd" data-ajax="true" data-ajax-method="get" data-ajax-update="#modalAddContent"><i class="fa-solid fa-plus me-2"></i>Ekle</a>
+        *@        @*        <a asp-action="SuspectListPartial" id="refresh" data-ajax="true" data-ajax-method="get" data-ajax-update="#panel" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrows-rotate me-2"></i>Yenile</a>
+        *@
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <div id="panel">
+
+            <table id="aaa" class="table table-hover table-sm">
+                <thead>
+                    <tr>
+@*                        <th>Uyruk</th>
+*@                        <th>Kimlik No</th>
+@*                        <th>İsim Soyisim</th>
+                        <th>Cinsiyet</th>
+                        <th>Doğum Tarihi</th>*@
+                        <th>Adet</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var suspect in Model)
+                    {
+                        <tr>
+@*                            <td>@suspect.Nationality</td>
+*@                            <td>@suspect.Tc</td>
+@*                            <td>@suspect.Name @suspect.LastName </td>
+                            <td>@suspect.Gender</td>
+                            <td>@suspect.DateOfBirth.ToShortDateString()</td>*@
+                            <td>@suspect.Counting</td>
+                            <td class="text-end" style="width:100px;">
+                                <a href="/suspect/filter?tc=@suspect.Tc">beni bul</a>
+                             
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+
+    @* <script>
+        $(function () {
+            refresh.click();
+        })
+    </script>*@
+
+    <script>
+        $(document).ready(function () {
+            $('#aaa').DataTable({
+                dom: 'BTfgtrpli',
+                buttons: [
+                    'copy', 'excel', 'print'
+                ], "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json"
+                }
+            });
+
+
+
+        });
+    </script>
+}

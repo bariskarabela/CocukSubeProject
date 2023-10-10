@@ -2,9 +2,13 @@
 using CocukSubeProject.Entities;
 using CocukSubeProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Security.Claims;
+using System.Xml.Linq;
 using X.PagedList;
 using X.PagedList;
 using X.PagedList.Mvc;
@@ -26,7 +30,35 @@ namespace CocukSubeProject.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            string district = User.FindFirstValue(ClaimTypes.Locality);
+
+            if (User.IsInRole("admin"))
+            {
+                var suspects = _databaseContext.Suspects
+                .Select(x => _mapper.Map<SuspectModel>(x)).ToList();
+
+                return View(suspects);
+
+            }
+            else
+            {
+                var suspects = _databaseContext.Suspects.Where(i => i.District == district)
+            .Select(x => _mapper.Map<SuspectModel>(x)).ToList();
+
+                return View(suspects);
+            }
+        }
+        public IActionResult Mukerrer()
+        {
+
+            var suspects = _databaseContext.Suspects.GroupBy(p => new { p.Tc/*, p.Name, p.LastName, p.Nationality, p.DateOfBirth*/ },
+                p => p, (key, g) => new MukerrerModel
+                { Tc = key.Tc, /*Name = key.Name, LastName = key.LastName, Nationality = key.Nationality, DateOfBirth = key.DateOfBirth,*/ Counting = g.Count() }).ToList();
+          
+
+            return View(suspects);
+
+
         }
 
         //public IActionResult SuspectListPartial(int page=1)
@@ -125,7 +157,7 @@ namespace CocukSubeProject.Controllers
         }
 
 
-        public IActionResult Filter(string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null,/* int? minAge = null, int? maxAge = null,*/ string gender = null, string tc = null)
+        public IActionResult Filter(string tc = null, string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null, string gender = null)
         {
             IQueryable<Suspect> suspects = _databaseContext.Suspects;
 

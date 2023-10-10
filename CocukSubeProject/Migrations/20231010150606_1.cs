@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CocukSubeProject.Migrations
 {
-    public partial class mg1 : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,8 +23,10 @@ namespace CocukSubeProject.Migrations
                     Nationality = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     District = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CatchAdress = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
+                    CatchDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CatchAdress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
+                    Crime = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {

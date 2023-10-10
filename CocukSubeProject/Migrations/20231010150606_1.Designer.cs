@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CocukSubeProject.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231005101520_mg1")]
-    partial class mg1
+    [Migration("20231010150606_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,11 +34,19 @@ namespace CocukSubeProject.Migrations
 
                     b.Property<string>("CatchAdress")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CatchDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Crime")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -69,8 +77,8 @@ namespace CocukSubeProject.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("Tc")
                         .IsRequired()

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<SuspectModel>
+
+@{
     ViewData["Title"] = "Şahıslar";
 }
 
@@ -12,13 +14,55 @@
 <div class="row mb-3">
     <div class="col-3">
         <a asp-action="AddNewSuspectPartial" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalAdd" data-ajax="true" data-ajax-method="get" data-ajax-update="#modalAddContent"><i class="fa-solid fa-plus me-2"></i>Ekle</a>
-        <a asp-action="SuspectListPartial" id="refresh" data-ajax="true" data-ajax-method="get" data-ajax-update="#panel" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrows-rotate me-2"></i>Yenile</a>
+        @*        <a asp-action="SuspectListPartial" id="refresh" data-ajax="true" data-ajax-method="get" data-ajax-update="#panel" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrows-rotate me-2"></i>Yenile</a>
+        *@
     </div>
 </div>
 
 <div class="row mb-3">
     <div class="col">
         <div id="panel">
+
+            <table id="aaa" class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Olay Tarihi</th>
+                        <th>Uyruk</th>
+                        <th>Kimlik No</th>
+                        <th>İsim Soyisim</th>
+                        <th>Cinsiyet</th>
+                        <th>Doğum Tarihi</th>
+                        <th>İlçe</th>
+                        <th>İkamet Adresi</th>
+                        <th>İletişim Bilgisi</th>
+                        <th>Yapılan İşlem</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (SuspectModel suspect in Model)
+                    {
+                        <tr>
+                            <td>@suspect.CatchDate.ToShortDateString()</td>
+                            <td>@suspect.Nationality</td>
+                            <td>@suspect.Tc</td>
+                            <td>@suspect.Name @suspect.LastName </td>
+                            <td>@suspect.Gender</td>
+                            <td>@suspect.DateOfBirth.ToShortDateString()</td>
+                            <td>@suspect.District</td>
+                            <td>@suspect.CatchAdress</td>
+                            <td>@suspect.Phone</td>
+                            <td>@suspect.Crime</td>
+
+                            <td class="text-end" style="width:100px;">
+                                <a asp-action="EditSuspectPartial" asp-route-id="@suspect.Id" type="button" data-ajax-complete="completed" class="btn btn-info btn-sm bg-secondary" data-bs-toggle="modal" data-bs-target="#modalEdit" data-ajax="true" data-ajax-method="get" data-ajax-update="#modalEditContent"><i class="fa fa-edit me-2"></i></a>
+                                <a asp-action="DeleteSuspect" asp-route-id="@suspect.Id" data-ajax-complete="completed" data-ajax-success="completed1" data-ajax-confirm="@suspect.Name isimli @suspect.Tc kimlik numaralı kullanıcıyı silmek istediğinize emin misiniz?"
+                               data-ajax="true" data-ajax-method="get" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-trash me-2"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -40,11 +84,31 @@
 @section Scripts {
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
 
-    <script>
+    @* <script>
         $(function () {
             refresh.click();
         })
+    </script>*@
+
+    <script>
+        $(document).ready(function () {
+            $('#aaa').DataTable({
+                dom: 'BTfgtrpli',
+                buttons: [
+                    'copy', 'excel', 'print'
+                ], "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json"
+                }
+            });
+
+            completed = function (xhr) {
+              
+                location.reload();
+            };
+            completed1 = function (xhr) {
+              
+                toastr.success('Başarılı');
+            };
+        });
     </script>
-
-
 }
