@@ -23,7 +23,7 @@
 
 <div class="row mb-3">
     <div class="col">
-        <table class="table table-hover table-sm">
+        <table id="userTable" class="table table-hover table-sm">
             <thead>
                 <tr>
                     <th>Sicil</th>
@@ -58,7 +58,11 @@
                         <td class="text-end">
                             <a asp-action="Edit" asp-route-id="@user.Id" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-edit me-2"></i></a>
                             <a asp-action="Delete" asp-route-id="@user.Id" onclick="return confirm('@user.FullName isimli @user.Sicil sicilli kullanıcıyı silmek istediğinize emin misiniz?')" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-trash me-2"></i></a>
-                            <a asp-action="ResetPassword" asp-controller="User" asp-route-id="@user.Id" onclick="return confirm('@user.FullName isimli @user.Sicil sicilli kullanıcının şifresini sıfırlamak istediğinize emin misiniz?')" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa fa-trash me-2"></i></a>
+                            <a asp-action="ResetPassword" asp-controller="User" asp-route-id="@user.Id" onclick="return confirm('@user.FullName isimli @user.Sicil sicilli kullanıcının şifresini sıfırlamak istediğinize emin misiniz?')" type="button" class="btn btn-info btn-sm bg-secondary"><i class="fa-solid fa-key me-2"></i></a>
+                            @if (ViewData["result"] != null && ViewData["result"] == "PasswordReseted")
+                            {
+                                <span class="text-success small">Şifre Güncellendi.</span>
+                            }
                         </td>
                     </tr>
                 }
@@ -74,8 +78,19 @@
         <script>
             toastr["success"]("Şifre sıfırlandı.", "Başarılı.")
         </script>
-
+       
     }
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json"
+                }
+            });
+        });
+    </script>
 
 
 }
+
+

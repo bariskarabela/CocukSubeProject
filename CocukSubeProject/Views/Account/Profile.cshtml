@@ -63,7 +63,7 @@
                     <input name="password" type="password" class="form-control" placeholder="Yeni Şifreniz">
                     <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Kaydet</button>
                 </div>
-                @if (ViewData["result"] != null && ViewData["result"] == "PasswordChanged")
+                @if ( ViewData["result"] == "PasswordReseted")
                 {
                     <span class="text-success small">Şifre Güncellendi.</span>
                 }

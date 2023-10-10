@@ -4,6 +4,7 @@ using CocukSubeProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net.NetworkInformation;
+using System.Security.Claims;
 using X.PagedList;
 using X.PagedList;
 using X.PagedList.Mvc;
@@ -28,12 +29,33 @@ namespace CocukSubeProject.Controllers
             return View();
         }
 
-        public IActionResult SuspectListPartial(int page=1)
-        {
-            var suspects = _databaseContext.Suspects
-               .Select(x => _mapper.Map<SuspectModel>(x)).ToPagedList(page,10);
+        //public IActionResult SuspectListPartial(int page=1)
+        //{
+        //    var suspects = _databaseContext.Suspects
+        //       .Select(x => _mapper.Map<SuspectModel>(x)).ToPagedList(page,10);
 
-            return PartialView("_SuspectListPartial", suspects);
+        //    return PartialView("_SuspectListPartial", suspects);
+        //}
+        public IActionResult SuspectListPartial(int page = 1)
+        {
+            string district = User.FindFirstValue(ClaimTypes.Locality);
+
+            if (User.IsInRole("admin"))
+            {
+                var suspects = _databaseContext.Suspects
+                .Select(x => _mapper.Map<SuspectModel>(x)).ToPagedList(page, 10);
+
+                return PartialView("_SuspectListPartial", suspects);
+
+            }
+            else
+            {
+                var suspects = _databaseContext.Suspects.Where(i => i.District == district)
+            .Select(x => _mapper.Map<SuspectModel>(x)).ToPagedList(page, 10);
+
+                return PartialView("_SuspectListPartial", suspects);
+            }
+
         }
         public IActionResult Chart()
         {
@@ -46,6 +68,7 @@ namespace CocukSubeProject.Controllers
 
             return PartialView("_AddNewSuspectPartial", new SuspectModel());
         }
+
         [HttpPost]
         public IActionResult AddNewSuspect(SuspectModel model)
         {
@@ -102,7 +125,7 @@ namespace CocukSubeProject.Controllers
         }
 
 
-        public IActionResult Filter(string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null,/* int? minAge = null, int? maxAge = null,*/ string gender = null,string tc = null)
+        public IActionResult Filter(string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null,/* int? minAge = null, int? maxAge = null,*/ string gender = null, string tc = null)
         {
             IQueryable<Suspect> suspects = _databaseContext.Suspects;
 

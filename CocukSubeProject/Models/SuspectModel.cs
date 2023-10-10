@@ -34,7 +34,7 @@ namespace CocukSubeProject.Models
         public string District { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
 
-        [StringLength(250)]
+        [StringLength(100)]
         public string CatchAdress { get; set; }
         [Required(ErrorMessage ="Zorunlu Alan.")]
         public DateTime CatchDate { get; set; }

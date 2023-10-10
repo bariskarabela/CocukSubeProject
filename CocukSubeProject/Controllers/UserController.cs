@@ -85,10 +85,11 @@ namespace CocukSubeProject.Controllers
 
                 user.Password = hashedPassword;
                 _databaseContext.SaveChanges();
-
                 ViewData["result"] = "PasswordReseted";
+
             }
-            return RedirectToAction("Index","User");
+      
+            return RedirectToAction("Index","Home");
         }
         private string DoMD5HashedString(string s)
         {

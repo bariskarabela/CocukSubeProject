@@ -1,4 +1,5 @@
-﻿@model SuspectModel
+﻿@using System.Security.Claims;
+@model SuspectModel
 
 <div class="modal-header">
     <h1 class="modal-title fs-5">Olay Ekle</h1>
@@ -8,30 +9,28 @@
     <form id="frmAddNewSuspect" asp-action="AddNewSuspect" method="post" data-ajax="true" data-ajax-method="post" data-ajax-update="#modalAddContent">
         <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
 
-        <div class="form-group mb-3">
+        <div class="form-group mb-1">
             <label asp-for="Tc" class="form-label"><i class="fa-solid fa-address-card me-2"></i>Kimlik No</label>
-            <input asp-for="Tc" type="number" class="form-control" placeholder="Kimlik No" />
+            <input asp-for="Tc" type="tel" class="form-control" placeholder="Kimlik No" />
             <span asp-validation-for="Tc" class="text-danger small"></span>
         </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="Name" class="form-label"><i class="fa-solid fa-signature me-2"></i>İsim</label>
-            <input asp-for="Name" class="form-control" placeholder="İsim" />
+        <div class="form-group mb-1">
+            <label asp-for="Name" class="form-label"><i class="fa-solid fa-signature me-2"></i>İsim ve Soyisim</label>
+            <input asp-for="Name" type="text" class="form-control" placeholder="İsim" />
+            <input asp-for="LastName" type="text" class="form-control" placeholder="Soyisim" />
             <span asp-validation-for="Name" class="text-danger small"></span>
-        </div>
-        <div class="form-group mb-3">
-            <label asp-for="LastName" class="form-label"><i class="fa-solid fa-signature me-2"></i>Soyisim</label>
-            <input asp-for="LastName" class="form-control" placeholder="Soyisim" />
             <span asp-validation-for="LastName" class="text-danger small"></span>
         </div>
-        <div class="form-group mb-3">
+
+        <div class="form-group mb-1">
             <label asp-for="DateOfBirth" class="form-label"><i class="fa-solid fa-calendar-days me-2"></i>Doğum Tarihi</label>
             <input asp-for="DateOfBirth" min="1923-01-01" value="2018-01-01" max="2123-01-01" type="date" class="form-control" />
             <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
         </div>
         <div><label asp-for="Gender" class="form-label"><i class="fa-solid fa-venus-mars me-2"></i>Cinsiyet</label></div>
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-1">
 
             <div>
                 <select asp-for="Gender" class="form-select">
@@ -45,7 +44,7 @@
             <div>  <span asp-validation-for="Gender" class="text-danger small"></span></div>
 
         </div>
-        <div class="form-group mb-3">
+        <div class="form-group mb-1">
             <label asp-for="Nationality" class="form-label"><i class="fa-solid fa-earth-europe me-2"></i>Uyruk</label>
             <input asp-for="Nationality" class="form-control" placeholder="Uyruk" />
             <span asp-validation-for="Nationality" class="text-danger small"></span>
@@ -53,80 +52,116 @@
 
         <div><label asp-for="District" class="form-label"><i class="fa-solid fa-building-circle-arrow-right me-2"></i>İlçe</label></div>
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-1">
 
             <div>
-                <select asp-for="District" class="form-select">
-                    <option value="">Seçiniz...</option>
-                    <option value="Adalar">Adalar</option>
-                    <option value="Arnavutköy">Arnavutköy</option>
-                    <option value="Ataşehir">Ataşehir</option>
-                    <option value="Avcılar">Avcılar</option>
-                    <option value="Bağcılar">Bağcılar</option>
-                    <option value="Bahçelievler">Bahçelievler</option>
-                    <option value="Bakırköy">Bakırköy</option>
-                    <option value="Başakşehir">Başakşehir</option>
-                    <option value="Bayrampaşa">Bayrampaşa</option>
-                    <option value="Beşiktaş">Beşiktaş</option>
-                    <option value="Beykoz">Beykoz</option>
-                    <option value="Beylikdüzü">Beylikdüzü</option>
-                    <option value="Beyoğlu">Beyoğlu</option>
-                    <option value="Büyükçekmece">Büyükçekmece</option>
-                    <option value="Çatalca">Çatalca</option>
-                    <option value="Çekmeköy">Çekmeköy</option>
-                    <option value="Esenler">Esenler</option>
-                    <option value="Esenyurt">Esenyurt</option>
-                    <option value="Eyüpsultan">Eyüpsultan</option>
-                    <option value="Fatih">Fatih</option>
-                    <option value="Gaziosmanpaşa">Gaziosmanpaşa</option>
-                    <option value="Güngören">Güngören</option>
-                    <option value="Kadıköy">Kadıköy</option>
-                    <option value="Kağıthane">Kağıthane</option>
-                    <option value="Kartal">Kartal</option>
-                    <option value="Küçükçekmece">Küçükçekmece</option>
-                    <option value="Maltepe">Maltepe</option>
-                    <option value="Pendik">Pendik</option>
-                    <option value="Sancaktepe">Sancaktepe</option>
-                    <option value="Sarıyer">Sarıyer</option>
-                    <option value="Silivri">Silivri</option>
-                    <option value="Sultanbeyli">Sultanbeyli</option>
-                    <option value="Sultangazi">Sultangazi</option>
-                    <option value="Şile">Şile</option>
-                    <option value="Şişli">Şişli</option>
-                    <option value="Tuzla">Tuzla</option>
-                    <option value="Ümraniye">Ümraniye</option>
-                    <option value="Üsküdar">Üsküdar</option>
-                    <option value="Zeytinburnu">Zeytinburnu</option>
+                @if (User.IsInRole("admin"))
+                {
+                    <select asp-for="District" class="form-select">
+                        <option value="">Seçiniz...</option>
+                        <option value="Adalar">Adalar</option>
+                        <option value="Arnavutköy">Arnavutköy</option>
+                        <option value="Ataşehir">Ataşehir</option>
+                        <option value="Avcılar">Avcılar</option>
+                        <option value="Bağcılar">Bağcılar</option>
+                        <option value="Bahçelievler">Bahçelievler</option>
+                        <option value="Bakırköy">Bakırköy</option>
+                        <option value="Başakşehir">Başakşehir</option>
+                        <option value="Bayrampaşa">Bayrampaşa</option>
+                        <option value="Beşiktaş">Beşiktaş</option>
+                        <option value="Beykoz">Beykoz</option>
+                        <option value="Beylikdüzü">Beylikdüzü</option>
+                        <option value="Beyoğlu">Beyoğlu</option>
+                        <option value="Büyükçekmece">Büyükçekmece</option>
+                        <option value="Çatalca">Çatalca</option>
+                        <option value="Çekmeköy">Çekmeköy</option>
+                        <option value="Esenler">Esenler</option>
+                        <option value="Esenyurt">Esenyurt</option>
+                        <option value="Eyüpsultan">Eyüpsultan</option>
+                        <option value="Fatih">Fatih</option>
+                        <option value="Gaziosmanpaşa">Gaziosmanpaşa</option>
+                        <option value="Güngören">Güngören</option>
+                        <option value="Kadıköy">Kadıköy</option>
+                        <option value="Kağıthane">Kağıthane</option>
+                        <option value="Kartal">Kartal</option>
+                        <option value="Küçükçekmece">Küçükçekmece</option>
+                        <option value="Maltepe">Maltepe</option>
+                        <option value="Pendik">Pendik</option>
+                        <option value="Sancaktepe">Sancaktepe</option>
+                        <option value="Sarıyer">Sarıyer</option>
+                        <option value="Silivri">Silivri</option>
+                        <option value="Sultanbeyli">Sultanbeyli</option>
+                        <option value="Sultangazi">Sultangazi</option>
+                        <option value="Şile">Şile</option>
+                        <option value="Şişli">Şişli</option>
+                        <option value="Tuzla">Tuzla</option>
+                        <option value="Ümraniye">Ümraniye</option>
+                        <option value="Üsküdar">Üsküdar</option>
+                        <option value="Zeytinburnu">Zeytinburnu</option>
 
 
 
-                </select>
+                    </select>
+                }
+                else
+                {
+                    <select asp-for="District" class="form-select">
+
+                        <option value=@User.FindFirstValue(ClaimTypes.Locality)>@User.FindFirstValue(ClaimTypes.Locality)</option>
+
+
+
+
+                    </select>
+                }
             </div>
 
             <div>  <span asp-validation-for="District" class="text-danger small"></span></div>
 
         </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="CatchAdress" class="form-label"><i class="fa-solid fa-handcuffs me-2"></i>Yakalanma Adresi</label>
-            <input asp-for="CatchAdress" class="form-control" placeholder="Yakalanma Adresi" />
+        <div class="form-group mb-1">
+            <label asp-for="CatchAdress" class="form-label"><i class="fa-solid fa-handcuffs me-2"></i>İkamet Adresi</label>
+            <input asp-for="CatchAdress" class="form-control" placeholder="İkamet Adresi" />
             <span asp-validation-for="CatchAdress" class="text-danger small"></span>
         </div>
 
-        <div class="form-group mb-3">
+        <div class="form-group mb-1">
             <label asp-for="Phone" class="form-label"><i class="fa-solid fa-phone me-2"></i>İletişim</label>
-            <input asp-for="Phone"  maxlength="11" value="0" type="number" class="form-control" placeholder="İletişim" />
+            <input asp-for="Phone" maxlength="11" type="tel" class="form-control" placeholder="Boşluksuz 11 hane giriniz." />
             <span asp-validation-for="Phone" class="text-danger small"></span>
         </div>
-        <div class="form-group mb-3">
+        <div class="form-group mb-1">
             <label asp-for="CatchDate" class="form-label"><i class="fa-solid fa-calendar-days me-2"></i>Doğum Tarihi</label>
             <input asp-for="CatchDate" min="1923-01-01" value="2023-01-01" max="2123-01-01" type="date" class="form-control" />
             <span asp-validation-for="CatchDate" class="text-danger small"></span>
         </div>
-        <div class="form-group mb-3">
-            <label asp-for="Crime" class="form-label"><i class="fa-solid fa-pencil me-2"></i>Yapılan İşlem</label>
-            <input asp-for="Crime" class="form-control" placeholder="Yapılan İşlem" />
-            <span asp-validation-for="Crime" class="text-danger small"></span>
+        <div><label asp-for="Crime" class="form-label"><i class="fa-brands fa-creative-commons-nd me-2"></i>Yapılan İşlem</label></div>
+
+        <div class="input-group mb-1">
+
+            <div>
+                <select asp-for="Crime" class="form-select">
+                    <option value="">Seçiniz...</option>
+                    <option value="İdari Yaptırım">İdari Yaptırım</option>
+                    <option value="Adli Yaptırım (Dilencilik)">Adli Yaptırım (Dilencilik)</option>
+                    <option value="Adli-İdari Yaptırım Yapılan Şahıs">Adli-İdari Yaptırım Yapılan Şahıs</option>
+                    <option value="Aileye Teslim Edilen Çocuk">Aileye Teslim Edilen Çocuk</option>
+                    <option value="Dilencilikten Aranması Olan Şahıs">Dilencilikten Aranması Olan Şahıs</option>
+                    <option value="Deport Edilen Şahıs (6458 SKM 54/1-ç)">Deport Edilen Şahıs (6458 SKM 54/1-ç)</option>
+                    <option value="Aranan Kayıp Çocuk">Aranan Kayıp Çocuk</option>
+                    <option value="Yurda Teslim Edilen Çocuk">Yurda Teslim Edilen Çocuk</option>
+                    <option value="Boş-1">Boş-1</option>
+                    <option value="Boş-2">Boş-2</option>
+                    <option value="Boş-3">Boş-3</option>
+                    <option value="Boş-4">Boş-4</option>
+                    <option value="Boş-5">Boş-5</option>
+
+                </select>
+            </div>
+
+            <div>  <span asp-validation-for="Crime" class="text-danger small"></span></div>
+
         </div>
 
 
@@ -143,7 +178,7 @@
 {
     <script>
         $("#modalAdd").modal("hide");
-        toastr.success('@Model.Done','Başarılı')
+        toastr.success('@Model.Done', 'Başarılı')
         refresh.click();
     </script>
 }

@@ -48,7 +48,7 @@ namespace CocukSubeProject.Controllers
                     claims.Add(new Claim(ClaimTypes.Name, user.FullName));
                     claims.Add(new Claim(ClaimTypes.Role, user.Role));
                     claims.Add(new Claim("Sicil", user.Sicil));
-                    claims.Add(new Claim("District", user.District));
+                    claims.Add(new Claim(ClaimTypes.Locality, user.District));
 
 
                     ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
