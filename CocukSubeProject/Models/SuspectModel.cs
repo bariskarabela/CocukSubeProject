@@ -11,12 +11,15 @@ namespace CocukSubeProject.Models
         [Required(ErrorMessage = "Zorunlu Alan.")]
         [MaxLength(11, ErrorMessage = "11 Hane olmalıdır.")]
         [MinLength(11, ErrorMessage = "11 Hane olmalıdır.")]
+        [StringLength(11, ErrorMessage = "11 Hane olmalıdır.")]
         public string Tc { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
         [StringLength(50)]
+        [MinLength(3, ErrorMessage = "Minumum 3 Hane olmalıdır.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
         [StringLength(50)]
+        [MinLength(3, ErrorMessage = "Minumum 3 Hane olmalıdır.")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
 

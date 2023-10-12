@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CocukSubeProject.Entities;
 using CocukSubeProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace CocukSubeProject.Controllers
             _databaseContext = databaseContext;
             _mapper = mapper;
         }
+        [Authorize]
         public IActionResult Index()
         {
             string district = User.FindFirstValue(ClaimTypes.Locality);
@@ -48,6 +50,7 @@ namespace CocukSubeProject.Controllers
                 return View(suspects);
             }
         }
+        [Authorize(Roles ="admin")]
         public IActionResult Mukerrer()
         {
 
@@ -68,6 +71,7 @@ namespace CocukSubeProject.Controllers
 
         //    return PartialView("_SuspectListPartial", suspects);
         //}
+        [Authorize]
         public IActionResult SuspectListPartial(int page = 1)
         {
             string district = User.FindFirstValue(ClaimTypes.Locality);
@@ -89,11 +93,12 @@ namespace CocukSubeProject.Controllers
             }
 
         }
+        [Authorize(Roles = "admin")]
         public IActionResult Chart()
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult AddNewSuspectPartial()
         {
 
@@ -102,6 +107,7 @@ namespace CocukSubeProject.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddNewSuspect(SuspectModel model)
         {
             if (ModelState.IsValid)
@@ -117,7 +123,7 @@ namespace CocukSubeProject.Controllers
             return PartialView("_AddNewSuspectPartial", model);
         }
 
-
+        [Authorize]
         public IActionResult EditSuspectPartial(int id)
         {
             Suspect suspect = _databaseContext.Suspects.Find(id);
@@ -127,6 +133,7 @@ namespace CocukSubeProject.Controllers
             return PartialView("_EditSuspectPartial", model);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult EditSuspect(int id, SuspectModel model)
         {
             if (ModelState.IsValid)
@@ -143,7 +150,7 @@ namespace CocukSubeProject.Controllers
 
             return PartialView("_EditSuspectPartial", model);
         }
-
+        [Authorize]
         public IActionResult DeleteSuspect(int id)
         {
             Suspect suspect = _databaseContext.Suspects.Find(id);
@@ -153,13 +160,27 @@ namespace CocukSubeProject.Controllers
                 _databaseContext.SaveChanges();
             }
 
-            return SuspectListPartial();
+            return RedirectToAction("Index","Suspect");
         }
 
-
-        public IActionResult Filter(string tc = null, string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null, string gender = null)
+        [Authorize(Roles = "admin")]
+        public IActionResult Filter(string catchDateStart=null, string catchDateEnd = null, string tc = null, string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null, string gender = null)
         {
             IQueryable<Suspect> suspects = _databaseContext.Suspects;
+
+
+            if (!string.IsNullOrEmpty(catchDateStart))
+            {
+                DateTime start = DateTime.Parse(catchDateStart);
+                suspects = suspects.Where(s => s.CatchDate >= start);
+            }
+
+            if (!string.IsNullOrEmpty(catchDateEnd))
+            {
+                DateTime end = DateTime.Parse(catchDateEnd);
+                suspects = suspects.Where(s => s.CatchDate <= end);
+            }
+
 
             if (!string.IsNullOrEmpty(name))
             {

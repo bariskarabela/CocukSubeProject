@@ -26,6 +26,7 @@
             <table id="aaa" class="table table-hover table-sm">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Olay Tarihi</th>
                         <th>Uyruk</th>
                         <th>Kimlik No</th>
@@ -33,6 +34,7 @@
                         <th>Cinsiyet</th>
                         <th>Doğum Tarihi</th>
                         <th>İlçe</th>
+
                         <th>İkamet Adresi</th>
                         <th>İletişim Bilgisi</th>
                         <th>Yapılan İşlem</th>
@@ -43,6 +45,7 @@
                     @foreach (SuspectModel suspect in Model)
                     {
                         <tr>
+                            <th>@suspect.Id</th>
                             <td>@suspect.CatchDate.ToShortDateString()</td>
                             <td>@suspect.Nationality</td>
                             <td>@suspect.Tc</td>
@@ -50,6 +53,7 @@
                             <td>@suspect.Gender</td>
                             <td>@suspect.DateOfBirth.ToShortDateString()</td>
                             <td>@suspect.District</td>
+
                             <td>@suspect.CatchAdress</td>
                             <td>@suspect.Phone</td>
                             <td>@suspect.Crime</td>
@@ -84,11 +88,6 @@
 @section Scripts {
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
 
-    @* <script>
-        $(function () {
-            refresh.click();
-        })
-    </script>*@
 
     <script>
         $(document).ready(function () {
@@ -97,18 +96,21 @@
                 buttons: [
                     'copy', 'excel', 'print'
                 ], "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json"
+                    "url": "/uploads/translate.json"
                 }
             });
 
-            completed = function (xhr) {
-              
-                location.reload();
-            };
+
             completed1 = function (xhr) {
               
-                toastr.success('Başarılı');
+                toastr.success('Kayıt silindi.','Başarılı');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
             };
+
+            
         });
     </script>
+   
 }

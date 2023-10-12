@@ -20,18 +20,18 @@
 </div>
 
 <div class="row mb-3">
-    <div class="col">
+    <div class="col-4 offset-4">
         <div id="panel">
 
             <table id="aaa" class="table table-hover table-sm">
                 <thead>
                     <tr>
 @*                        <th>Uyruk</th>
-*@                        <th>Kimlik No</th>
+*@                        <th class="text-center">Kimlik No</th>
 @*                        <th>İsim Soyisim</th>
                         <th>Cinsiyet</th>
                         <th>Doğum Tarihi</th>*@
-                        <th>Adet</th>
+                        <th class="text-center">Adet</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -40,13 +40,13 @@
                     {
                         <tr>
 @*                            <td>@suspect.Nationality</td>
-*@                            <td>@suspect.Tc</td>
+*@                            <td class="text-center">@suspect.Tc</td>
 @*                            <td>@suspect.Name @suspect.LastName </td>
                             <td>@suspect.Gender</td>
                             <td>@suspect.DateOfBirth.ToShortDateString()</td>*@
-                            <td>@suspect.Counting</td>
+                            <td class="text-end">@suspect.Counting</td>
                             <td class="text-end" style="width:100px;">
-                                <a href="/suspect/filter?tc=@suspect.Tc">beni bul</a>
+                                <a href="/suspect/filter?tc=@suspect.Tc">Detaya Git</a>
                              
                             </td>
                         </tr>

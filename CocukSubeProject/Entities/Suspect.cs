@@ -10,14 +10,17 @@ namespace CocukSubeProject.Entities
         [Required(ErrorMessage = "Zorunlu Alan.")]
         public int Id { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
+        [StringLength(11)]
         [MaxLength(11)]
         [MinLength(11)]
         public string Tc { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
         [StringLength(50)]
+        [MinLength(3)]
         public string Name { get; set; } 
         [Required(ErrorMessage = "Zorunlu Alan.")]
         [StringLength(50)]
+        [MinLength(3)]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
 

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using CocukSubeProject.Entities;
 using CocukSubeProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Encrypt.Extensions;
+using System.Data;
 
 namespace CocukSubeProject.Controllers
 {
@@ -19,7 +21,7 @@ namespace CocukSubeProject.Controllers
             _configuration = configuration;
 
         }
-
+        [Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             List<UserModel> users = _databaseContext.Users.ToList()
@@ -27,7 +29,7 @@ namespace CocukSubeProject.Controllers
 
             return View(users);
         }
-
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(Guid id)
         {
             User user = _databaseContext.Users.Find(id);
@@ -36,6 +38,7 @@ namespace CocukSubeProject.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(Guid id, EditUserModel model)
         {
             if (ModelState.IsValid)
@@ -56,7 +59,7 @@ namespace CocukSubeProject.Controllers
 
             return View();
         }
-
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(Guid id, EditUserModel model)
         {
 
@@ -71,7 +74,7 @@ namespace CocukSubeProject.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "admin")]
         public IActionResult ResetPassword(Guid id)
         {
             User user = _databaseContext.Users.Find(id);

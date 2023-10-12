@@ -18,6 +18,8 @@
 
 
                 <input type="text" name="catchAdress" id="catchAdress" class="form-control me-2" placeholder="Adres" />
+                <input name="catchDateStart" id="catchDateStart" type="date" class="form-control me-2" placeholder="Tarih Aralığı" />
+                <input name="catchDateEnd" id="catchDateEnd" type="date" class="form-control me-2" placeholder="Tarih Aralığı" />
 
                 <select id="district" name="district" class="form-select me-2">
                     <option value="">İlçe</option>
@@ -106,8 +108,10 @@
         </div>
 
         <hr />
-
+    
         <button type="submit" class="btn btn-primary">Filtrele</button>
+        <button type="submit" asp-controller="Suspect" asp-action="Mukerrer" class="btn btn-secondary">Mükerrer Şahıslar</button>
+
 </form>
 
 <div class="alert alert-primary mb-2 mt-2" role="alert">
@@ -119,31 +123,33 @@
     <thead>
         <tr>
 
+            <th>Olay Tarihi</th>
             <th>Uyruk</th>
             <th>Kimlik No</th>
             <th>İsim Soyisim</th>
             <th>Cinsiyet</th>
             <th>Doğum Tarihi</th>
             <th>İlçe</th>
-            <th>Yakalanma Adresi</th>
-            <th>Oluşturulma Zamanı</th>
-            <th>İletişim</th>
-            <!-- Diğer sütunlar buraya eklenebilir -->
+            <th>İkamet Adresi</th>
+            <th>İletişim Bilgisi</th>
+            <th>Yapılan İşlem</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var suspect in Model.Suspects)
         {
             <tr>
+                <td>@suspect.CatchDate.ToShortDateString()</td>
                 <td>@suspect.Nationality</td>
                 <td>@suspect.Tc</td>
-                <td>@suspect.Name  @suspect.LastName</td>
+                <td>@suspect.Name @suspect.LastName </td>
                 <td>@suspect.Gender</td>
                 <td>@suspect.DateOfBirth.ToShortDateString()</td>
                 <td>@suspect.District</td>
                 <td>@suspect.CatchAdress</td>
-                <td>@suspect.CreatedDate.ToString()</td>
                 <td>@suspect.Phone</td>
+                <td>@suspect.Crime</td>
 
                 <!-- Diğer sütunlar buraya eklenebilir -->
             </tr>

@@ -75,12 +75,14 @@ namespace CocukSubeProject.Controllers
             string hashed = salted.MD5();
             return hashed;
         }
-
+        [Authorize(Roles = "admin")]
         public IActionResult Register()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles ="admin")]
+        
         public IActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -123,7 +125,7 @@ namespace CocukSubeProject.Controllers
 
             return View();
         }
-
+        [Authorize]
         private void ProfileInfoLoader()
         {
             Guid userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -134,6 +136,7 @@ namespace CocukSubeProject.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult ProfileChangeName([Required(ErrorMessage = "İsim boş olamaz.")][StringLength(50, ErrorMessage = "50 Karakterden büyük olamaz.")] string? name)
         {
             if (ModelState.IsValid)
@@ -161,6 +164,7 @@ namespace CocukSubeProject.Controllers
             return RedirectToAction(nameof(Login));
         }
         [HttpPost]
+        [Authorize]
         public IActionResult ProfileChangePassword([Required(ErrorMessage = "Şifre boş olamaz.")][StringLength(50, ErrorMessage = "50 Karakterden büyük olamaz.")][MinLength(6,ErrorMessage ="Minimum 6 hane.")] string? password)
         {
             if (ModelState.IsValid)
@@ -179,6 +183,7 @@ namespace CocukSubeProject.Controllers
             return View(nameof(Profile));
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult ProfileChangeImage([Required(ErrorMessage = "Fotoğraf boş olamaz.")] IFormFile file)
         {
             if (ModelState.IsValid)
