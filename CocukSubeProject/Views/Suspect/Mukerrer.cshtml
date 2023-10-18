@@ -28,9 +28,10 @@
                     <tr>
 @*                        <th>Uyruk</th>
 *@                        <th class="text-center">Kimlik No</th>
-@*                        <th>İsim Soyisim</th>
-                        <th>Cinsiyet</th>
+             @*           <th>İsim Soyisim</th>*@
+                     @*   <th>Cinsiyet</th>
                         <th>Doğum Tarihi</th>*@
+                        <th>Yaş</th>
                         <th class="text-center">Adet</th>
                         <th></th>
                     </tr>
@@ -41,9 +42,11 @@
                         <tr>
 @*                            <td>@suspect.Nationality</td>
 *@                            <td class="text-center">@suspect.Tc</td>
-@*                            <td>@suspect.Name @suspect.LastName </td>
-                            <td>@suspect.Gender</td>
-                            <td>@suspect.DateOfBirth.ToShortDateString()</td>*@
+                            <td class="text-center">@suspect.Ages</td>
+                      @*      <td>@suspect.Name @suspect.LastName </td>
+                          <td>@suspect.Gender</td> <td></td>
+                        *@
+                           
                             <td class="text-end">@suspect.Counting</td>
                             <td class="text-end" style="width:100px;">
                                 <a href="/suspect/filter?tc=@suspect.Tc">Detaya Git</a>

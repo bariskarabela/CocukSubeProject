@@ -29,38 +29,42 @@ namespace CocukSubeProject.Controllers
             _databaseContext = databaseContext;
             _mapper = mapper;
         }
-        [Authorize]
-        public IActionResult Index()
-        {
-            string district = User.FindFirstValue(ClaimTypes.Locality);
+        //[Authorize]
+        //public IActionResult Index()
+        //{
+        //    string district = User.FindFirstValue(ClaimTypes.Locality);
 
-            if (User.IsInRole("admin"))
-            {
-                var suspects = _databaseContext.Suspects
-                .Select(x => _mapper.Map<SuspectModel>(x)).ToList();
+        //    if (User.IsInRole("admin"))
+        //    {
+        //        var suspects = _databaseContext.Suspects
+        //        .Select(x => _mapper.Map<SuspectModel>(x)).ToList();
 
-                return View(suspects);
+        //        return View(suspects);
 
-            }
-            else
-            {
-                var suspects = _databaseContext.Suspects.Where(i => i.District == district)
-            .Select(x => _mapper.Map<SuspectModel>(x)).ToList();
+        //    }
+        //    else
+        //    {
+        //        var suspects = _databaseContext.Suspects.Where(i => i.District == district)
+        //    .Select(x => _mapper.Map<SuspectModel>(x)).ToList();
 
-                return View(suspects);
-            }
-        }
-        [Authorize(Roles ="admin")]
+        //        return View(suspects);
+        //    }
+        //}
+        [Authorize(Roles = "admin")]
         public IActionResult Mukerrer()
         {
 
-            var suspects = _databaseContext.Suspects.GroupBy(p => new { p.Tc/*, p.Name, p.LastName, p.Nationality, p.DateOfBirth*/ },
+            var suspects = _databaseContext.Suspects.GroupBy(p => new { p.Tc, p.DateOfBirth/*p.Name, p.LastName, p.Nationality, *//*, */ },
                 p => p, (key, g) => new MukerrerModel
-                { Tc = key.Tc, /*Name = key.Name, LastName = key.LastName, Nationality = key.Nationality, DateOfBirth = key.DateOfBirth,*/ Counting = g.Count() }).ToList();
-          
+                {
+                    Tc = key.Tc,
+                    Ages = AgeStatus(key.DateOfBirth), /*,Name = key.Name, LastName = key.LastName,*/
+                    //* Nationality = key.Nationality, DateOfBirth = key.DateOfBirth,
+                    Counting = g.Count()
+                }).Where(x => x.Counting > 1).ToList();
+
 
             return View(suspects);
-
 
         }
 
@@ -71,6 +75,10 @@ namespace CocukSubeProject.Controllers
 
         //    return PartialView("_SuspectListPartial", suspects);
         //}
+        public IActionResult Index()
+        {
+            return View();
+        }
         [Authorize]
         public IActionResult SuspectListPartial(int page = 1)
         {
@@ -93,11 +101,7 @@ namespace CocukSubeProject.Controllers
             }
 
         }
-        [Authorize(Roles = "admin")]
-        public IActionResult Chart()
-        {
-            return View();
-        }
+   
         [Authorize]
         public IActionResult AddNewSuspectPartial()
         {
@@ -160,14 +164,18 @@ namespace CocukSubeProject.Controllers
                 _databaseContext.SaveChanges();
             }
 
-            return RedirectToAction("Index","Suspect");
+            return RedirectToAction("Index", "Suspect");
         }
 
         [Authorize(Roles = "admin")]
-        public IActionResult Filter(string catchDateStart=null, string catchDateEnd = null, string tc = null, string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null, string gender = null)
+        public IActionResult Filter(string catchDateStart = null, string catchDateEnd = null, string tc = null, string name = null, string lastName = null, string nationality = null, string catchAdress = null, string district = null, string ages = null, string gender = null,string allSuspects = null)
         {
             IQueryable<Suspect> suspects = _databaseContext.Suspects;
 
+            if (!string.IsNullOrEmpty(allSuspects))
+            {
+               suspects = _databaseContext.Suspects;
+            }
 
             if (!string.IsNullOrEmpty(catchDateStart))
             {
@@ -184,28 +192,28 @@ namespace CocukSubeProject.Controllers
 
             if (!string.IsNullOrEmpty(name))
             {
-                suspects = suspects.Where(s => s.Name.Contains(name));
+                suspects = suspects.Where(s => s.Name.ToLower().Trim().Contains(name.ToLower().Trim()));
             }
 
             if (!string.IsNullOrEmpty(tc))
             {
-                suspects = suspects.Where(s => s.Tc.Contains(tc));
+                suspects = suspects.Where(s => s.Tc.ToLower().Trim().Contains(tc.ToLower().Trim()));
             }
             if (!string.IsNullOrEmpty(lastName))
             {
-                suspects = suspects.Where(s => s.LastName.Contains(lastName));
+                suspects = suspects.Where(s => s.LastName.ToLower().Trim().Contains(lastName.ToLower().Trim()));
             }
             if (!string.IsNullOrEmpty(nationality))
             {
-                suspects = suspects.Where(s => s.Nationality.Contains(nationality));
+                suspects = suspects.Where(s => s.Nationality.ToLower().Trim().Contains(nationality.ToLower().Trim()));
             }
             if (!string.IsNullOrEmpty(catchAdress))
             {
-                suspects = suspects.Where(s => s.CatchAdress.Contains(catchAdress));
+                suspects = suspects.Where(s => s.CatchAdress.ToLower().Trim().Contains(catchAdress.ToLower().Trim()));
             }
             if (!string.IsNullOrEmpty(district))
             {
-                suspects = suspects.Where(s => s.District.Contains(district));
+                suspects = suspects.Where(s => s.District.ToLower().Trim().Contains(district.ToLower().Trim()));
             }
 
             if (!string.IsNullOrEmpty(ages))
@@ -221,7 +229,7 @@ namespace CocukSubeProject.Controllers
             }
             if (!string.IsNullOrEmpty(gender))
             {
-                suspects = suspects.Where(s => s.Gender.Contains(gender));
+                suspects = suspects.Where(s => s.Gender.ToLower().Trim().Contains(gender.ToLower().Trim()));
             }
 
             //if (minAge.HasValue)
@@ -236,14 +244,76 @@ namespace CocukSubeProject.Controllers
             //    suspects = suspects.Where(s => s.DateOfBirth > maxBirthDate);
             //}
 
-            // Sonuçları ViewModel ile görüntüleme.
-            var viewModel = new SuspectViewModel
-            {
-                Suspects = suspects.ToList(),
-                SuspectCount = suspects.Count()
-            };
 
-            return View(viewModel);
+            if (!string.IsNullOrEmpty(catchDateStart) || !string.IsNullOrEmpty(catchDateEnd) || !string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(tc) || !string.IsNullOrEmpty(lastName) || !string.IsNullOrEmpty(nationality) || !string.IsNullOrEmpty(catchAdress) || !string.IsNullOrEmpty(district) || !string.IsNullOrEmpty(ages) || !string.IsNullOrEmpty(gender) || !string.IsNullOrEmpty(allSuspects))
+            {
+                // Eğer herhangi bir filtre parametresi doluysa veritabanından verileri getir
+                var viewModel = new SuspectViewModel
+                {
+                    Suspects = suspects.ToList(),
+                    SuspectCount = suspects.Count()
+                };
+
+                return View(viewModel);
+            }
+            else
+            {
+                // Eğer hiçbir filtre parametresi girilmediyse, boş bir sonuç göster
+                return View(new SuspectViewModel { SuspectCount =  suspects.Count(), Suspects = new List<Suspect> {  } });
+            }
+        }
+
+        public static string AgeStatus(DateTime dob)
+        {
+            var today = DateTime.Today;
+            var age = (today - dob).TotalDays / 365;
+            return age >= 18 ? "18 Yaşından büyük" : "18 Yaşından küçük";
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> LoadTable([FromBody] DtParameters dtParameters)
+        {
+            var searchBy = dtParameters.Search?.Value;
+
+            // if we have an empty search then just order the results by Id ascending
+            var orderCriteria = "Id";
+            var orderAscendingDirection = true;
+
+            if (dtParameters.Order != null)
+            {
+                // in this example we just default sort on the 1st column
+                orderCriteria = dtParameters.Columns[dtParameters.Order[0].Column].Data;
+                orderAscendingDirection = dtParameters.Order[0].Dir.ToString().ToLower() == "asc";
+            }
+
+            var result = _databaseContext.Suspects.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchBy))
+            {
+                result = result.Where(r => r.Name != null && r.Name.ToUpper().Contains(searchBy.ToUpper()));
+            }
+
+            result = orderAscendingDirection ? result.OrderByDynamic(orderCriteria, DtOrderDir.Asc) : result.OrderByDynamic(orderCriteria, DtOrderDir.Desc);
+
+            // now just get the count of items (without the skip and take) - eg how many could be returned with filtering
+            var filteredResultsCount = await result.CountAsync();
+            var totalResultsCount = await _databaseContext.Suspects.CountAsync();
+
+
+
+            var Data = await result
+                     .Skip(dtParameters.Start)
+                     .Take(dtParameters.Length)
+                     .ToListAsync();
+            var ddd = _mapper.Map<List<SuspectModel>>(Data);
+            return Json(new DtResult<SuspectModel>
+            {
+                Draw = dtParameters.Draw,
+                RecordsTotal = totalResultsCount,
+                RecordsFiltered = filteredResultsCount,
+                Data = ddd
+            });
         }
     }
 }

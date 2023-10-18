@@ -1,15 +1,16 @@
-﻿@model List<SuspectModel>
-@*@model IPagedList<SuspectModel>
+﻿@*@model List<SuspectModel>*@
+@model IPagedList<SuspectModel>
 @using X.PagedList;
 @using X.PagedList.Mvc;
 @using X.PagedList.Mvc.Core;
 @using X.PagedList.Web.Common;
-*@
+
 
 
 <table id="aaa" class="table table-hover table-sm">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Olay Tarihi</th>
             <th>Uyruk</th>
             <th>Kimlik No</th>
@@ -28,6 +29,7 @@
         @foreach (SuspectModel suspect in Model)
         {
             <tr>
+                <td>@suspect.Id</td>
                 <td>@suspect.CatchDate.ToShortDateString()</td>
                 <td>@suspect.Nationality</td>
                 <td>@suspect.Tc</td>
@@ -50,23 +52,24 @@
     </tbody>
 </table>
 
-<script>
+@*<script>
     $(document).ready(function () {
         $('#aaa').DataTable({
             "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json"
+                "url": "~/wwwroot/uploads/translate.json"
+
             }
         });
     });
-</script>
+</script>*@
 
 
-@*@Html.PagedListPager(
+@Html.PagedListPager(
     Model,
     page => Url.Action("SuspectListPartial", new { page = page}),
     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions(){  HttpMethod = "GET", UpdateTargetId = "panel"})
 )
-*@
+
 
 
 

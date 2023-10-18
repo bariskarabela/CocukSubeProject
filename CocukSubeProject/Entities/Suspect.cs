@@ -20,7 +20,7 @@ namespace CocukSubeProject.Entities
         public string Name { get; set; } 
         [Required(ErrorMessage = "Zorunlu Alan.")]
         [StringLength(50)]
-        [MinLength(3)]
+        [MinLength(2)]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
 

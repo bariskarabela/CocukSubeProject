@@ -23,7 +23,7 @@ namespace CocukSubeProject.Models
 
 
         [Required(ErrorMessage = "İsim Soyisim giriniz.")]
-        [MinLength(3, ErrorMessage = "Minimum 3 hane olmalıdır.")]
+        [MinLength(2, ErrorMessage = "Minimum 2 hane olmalıdır.")]
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Birim giriniz.")]

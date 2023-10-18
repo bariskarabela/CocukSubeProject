@@ -4,7 +4,7 @@ namespace CocukSubeProject.Models
 {
     public class SuspectViewModel
     {
-        public List<Suspect> Suspects { get; set; }
-        public int SuspectCount { get; set; }
+        public List<Suspect> Suspects { get; set; } 
+        public int SuspectCount { get; set; } 
     }
 }

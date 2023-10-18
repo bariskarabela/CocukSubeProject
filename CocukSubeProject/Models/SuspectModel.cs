@@ -19,7 +19,7 @@ namespace CocukSubeProject.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
         [StringLength(50)]
-        [MinLength(3, ErrorMessage = "Minumum 3 Hane olmalıdır.")]
+        [MinLength(2, ErrorMessage = "Minumum 2 Hane olmalıdır.")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Zorunlu Alan.")]
 
@@ -61,6 +61,8 @@ namespace CocukSubeProject.Models
     
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string Ages { get; set; }
+
         public string Gender { get; set; }
         public string Nationality { get; set; }
         public int Counting { get; set; }
